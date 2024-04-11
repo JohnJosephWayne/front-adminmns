@@ -1,4 +1,6 @@
-<form class="formulaire" (ngSubmit)="onConnexion()" [formGroup]="formulaire" >
+<form class="login" (ngSubmit)="onConnexion()" [formGroup]="formulaire" >
+<h1>Se connecter</h1>
+  <br>
 <mat-form-field>
   <mat-label>Email</mat-label>
   <input matInput formControlName="email">
@@ -10,11 +12,40 @@
   }
 </mat-form-field>
 <mat-form-field>
-  <mat-label>Password</mat-label>
-  <input type="password" matInput formControlName="password">
+  <mat-label>Mot de passe</mat-label>
+  <input
+    matInput
+    formControlName="motDePasse"
+    [type]="afficheMotDePasse ? 'text' : 'password'"
+  />
+  <button
+    type="button"
+    mat-icon-button
+    matSuffix
+    (click)="afficheMotDePasse = !afficheMotDePasse"
+    [attr.aria-label]="'Hide password'"
+    [attr.aria-pressed]="afficheMotDePasse"
+  >
+    <mat-icon>{{
+        afficheMotDePasse ? "visibility" : "visibility_off"
+      }}</mat-icon>
+  </button>
   <mat-error>Le mot de passe est obligatoire</mat-error>
 </mat-form-field>
 
+  @if(erreurConnexion) {
+    <mat-error>Les identifiants sont incorrects</mat-error>
+  }
 
-<button mat-raised-button color="primary">Se connecter</button>
+<button mat-raised-button style="background-color: #080B21; color:#C5E7E2">Se connecter</button>
+
+  <br>
+  <br>
+
 </form>
+
+<p>Vous n'avez pas encore de compte ?</p>
+<br>
+<button routerLink="/inscription" type="button" mat-stroked-button color="var(--secondary--)">
+  S'inscrire
+</button>

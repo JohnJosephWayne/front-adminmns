@@ -1,37 +1,67 @@
-import {Component, inject} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {Router} from "@angular/router";
+import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {Router, RouterLink} from '@angular/router';
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-connexion',
   standalone: true,
-  imports: [MatButtonModule, MatInputModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, HttpClientModule],
+  imports: [
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatIcon,
+    RouterLink,
+  ],
   templateUrl: './connexion.component.html',
-  styleUrl: './connexion.component.scss'
+  styleUrl: './connexion.component.scss',
 })
 export class ConnexionComponent {
-
   formBuilder: FormBuilder = inject(FormBuilder);
   http: HttpClient = inject(HttpClient);
-  routeur: Router = inject(Router);
+  router: Router = inject(Router);
 
   formulaire: FormGroup = this.formBuilder.group({
-    email:["a@a.com", [Validators.email, Validators.required]],
-    password: ["root",[Validators.required]]
-  })
+    email: ['', [Validators.email, Validators.required]],
+    motDePasse: ['', [Validators.required]],
+  });
 
-  onConnexion(){
-    if (this.formulaire.valid){
+  erreurConnexion: boolean = false;
+  afficheMotDePasse = false;
+
+  onConnexion() {
+
+    if (this.formulaire.valid) {
       this.http
-        .post<{jwt: string}>("http://localhost:8080/connexion", this.formulaire.value)
-        .subscribe(resultat => {
-          localStorage.setItem("jwt", resultat.jwt)
-          this.routeur.navigateByUrl("/accueil");
-        })
+        .post<{ jwt: string }>(
+          'http://localhost:8080/connexion',
+          this.formulaire.value
+        )
+        .subscribe({
+          next: (resultat) => {
+            localStorage.setItem('jwt', resultat.jwt);
+            this.router.navigateByUrl('/accueil');
+            console.log(resultat);
+          },
+          error: (reponse) => {
+            //alert('Les identifiants sont incorrets');
+            this.erreurConnexion = true;
+            console.log(reponse);
+          },
+        });
     }
   }
 }

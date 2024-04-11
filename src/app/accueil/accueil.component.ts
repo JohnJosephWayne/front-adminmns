@@ -17,18 +17,9 @@ export class AccueilComponent implements OnInit{
 
   http: HttpClient = inject(HttpClient);
 
-  listeProduit: any [] = [];
-  ngOnInit(){
-    this.http
-      .get<any[]>("http://localhost:8080/produit/liste", )
-      .subscribe(listeProduit => this.listeProduit = listeProduit);
+  ngOnInit(): void{
+    console.log("EZ on est là")
   }
 
-  onSupprimerProduit(idProduit: number) : void{
-
-    this.http
-      .delete("http://localhost:8080/produit/" + idProduit)
-      .subscribe((resultat=>console.log(resultat)))
-  }
 
 }
