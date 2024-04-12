@@ -36,7 +36,7 @@ export class ConnexionComponent {
 
   formulaire: FormGroup = this.formBuilder.group({
     email: ['', [Validators.email, Validators.required]],
-    motDePasse: ['', [Validators.required]],
+    password: ['', [Validators.required]],
   });
 
   erreurConnexion: boolean = false;
