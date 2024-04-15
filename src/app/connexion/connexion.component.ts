@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import {Component, inject} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {
   FormBuilder,
   FormGroup,
@@ -9,7 +9,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {Router, RouterLink} from '@angular/router';
 import {MatIcon} from "@angular/material/icon";
 
@@ -34,7 +34,7 @@ export class ConnexionComponent {
   http: HttpClient = inject(HttpClient);
   router: Router = inject(Router);
 
-  formulaire: FormGroup = this.formBuilder.group({
+  formulaireConnexion: FormGroup = this.formBuilder.group({
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required]],
   });
@@ -44,11 +44,11 @@ export class ConnexionComponent {
 
   onConnexion() {
 
-    if (this.formulaire.valid) {
+    if (this.formulaireConnexion.valid) {
       this.http
         .post<{ jwt: string }>(
           'http://localhost:8080/connexion',
-          this.formulaire.value
+          this.formulaireConnexion.value
         )
         .subscribe({
           next: (resultat) => {
@@ -57,7 +57,6 @@ export class ConnexionComponent {
             console.log(resultat);
           },
           error: (reponse) => {
-            //alert('Les identifiants sont incorrets');
             this.erreurConnexion = true;
             console.log(reponse);
           },

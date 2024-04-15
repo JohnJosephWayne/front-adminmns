@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-pagenontrouvee',
@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './pagenontrouvee.component.html',
   styleUrl: './pagenontrouvee.component.scss'
 })
-export class PagenontrouveeComponent {
+export class PageNonTrouveeComponent {
 
 }

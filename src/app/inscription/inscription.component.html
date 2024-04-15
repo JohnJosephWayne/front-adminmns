@@ -1,5 +1,5 @@
 <h2>INSCRIPTION</h2>
-<form class="login" [formGroup]="formulaire" (ngSubmit)="onInscription()">
+<form class="formLog" [formGroup]="formulaireInscription" (ngSubmit)="onInscription()">
   <mat-form-field>
     <mat-label>Email</mat-label>
     <input
@@ -8,11 +8,12 @@
       placeholder="Ex. john.doe@domain.com"
     />
 
-    @if(formulaire.get("email")?.hasError('required')){
+    @if (formulaireInscription.get("email")?.hasError('required')) {
       <mat-error>L'email est obligatoire</mat-error>
-    } @if(formulaire.get("email")?.hasError('email')){
-    <mat-error>L'email est mal formé</mat-error>
-  }
+    }
+    @if (formulaireInscription.get("email")?.hasError('email')) {
+      <mat-error>L'email est mal formé</mat-error>
+    }
   </mat-form-field>
 
   <mat-form-field>
@@ -32,7 +33,8 @@
     >
       <mat-icon>{{
           afficheMotDePasse ? "visibility" : "visibility_off"
-        }}</mat-icon>
+        }}
+      </mat-icon>
     </button>
 
     <mat-error>Le mot de passe est obligatoire</mat-error>
@@ -45,9 +47,9 @@
       formControlName="lastname"
       placeholder="Votre nom de famille"
     />
-    @if(formulaire.get("lastname")?.hasError('required')){
+    @if (formulaireInscription.get("lastname")?.hasError('required')) {
       <mat-error>Le nom de famille est obligatoire</mat-error>
-  }
+    }
   </mat-form-field>
   <mat-form-field>
     <mat-label>Votre prénom</mat-label>
@@ -57,7 +59,7 @@
       placeholder="Votre prénom"
     />
 
-    @if(formulaire.get("firstname")?.hasError('required')){
+    @if (formulaireInscription.get("firstname")?.hasError('required')) {
       <mat-error>Le prénom est obligatoire</mat-error>
     }
   </mat-form-field>
@@ -67,7 +69,7 @@
     <mat-radio-button value="A">Autre</mat-radio-button>
   </mat-radio-group>
 
-    <button type="submit" mat-raised-button color="primary">
+  <button type="submit" mat-raised-button color="primary">
     Créer mon compte
   </button>
 </form>

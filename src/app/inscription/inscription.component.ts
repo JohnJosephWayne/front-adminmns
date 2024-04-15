@@ -37,12 +37,12 @@ export class InscriptionComponent {
   router: Router = inject(Router);
 
   // champs obligatoires
-  formulaire: FormGroup = this.formBuilder.group({
+  formulaireInscription: FormGroup = this.formBuilder.group({
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required]],
     lastname: ['', [Validators.required]],
     firstname: ['', [Validators.required]],
-    gender: ['',[]]
+    gender: ['', []]
   });
 
   afficheMotDePasse = false;
@@ -50,9 +50,9 @@ export class InscriptionComponent {
 
   onInscription(): void {
     // test de la validité du formulaire
-    if (this.formulaire.valid) {
+    if (this.formulaireInscription.valid) {
       this.http
-        .post('http://localhost:8080/inscription', this.formulaire.value)
+        .post('http://localhost:8080/inscription', this.formulaireInscription.value)
         .subscribe({
           next: (resultat) => {
             //renvoi vers la page d'accueil après inscription
