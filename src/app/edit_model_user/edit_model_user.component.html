@@ -1,5 +1,7 @@
-<h2>INSCRIPTION</h2>
-<form class="formLog" [formGroup]="formulaireInscription" (ngSubmit)="onInscription()">
+<h2>Ajouter/Modifier un utilisateur </h2>
+
+<form class="formLog" [formGroup]="formulaireEditUser" (ngSubmit)="onSubmit()">
+
   <mat-form-field>
     <mat-label>Email</mat-label>
     <input
@@ -8,10 +10,10 @@
       placeholder="Ex. john.doe@domain.com"
     />
 
-    @if (formulaireInscription.get("email")?.hasError('required')) {
+    @if (formulaireEditUser.get("email")?.hasError('required')) {
       <mat-error>L'email est obligatoire</mat-error>
     }
-    @if (formulaireInscription.get("email")?.hasError('email')) {
+    @if (formulaireEditUser.get("email")?.hasError('email')) {
       <mat-error>L'email est mal formé</mat-error>
     }
   </mat-form-field>
@@ -39,45 +41,38 @@
       </mat-icon>
     </button>
 
-<!--    <div class="text-red-400 text-sm" *ngIf="formulaireInscription.get('password')?.dirty">-->
-<!--      <span class="block" [ngClass]="{'text-primary': passwordForm?.match('^(?=.*[A-Z])')}">Au moins une majuscule. </span>-->
-<!--      <span class="block" [ngClass]="{'text-primary': passwordForm?.match('(?=.*[a-z])')}">Au moins une minuscule. </span>-->
-<!--      <span class="block" [ngClass]="{'text-primary': passwordForm?.match('(.*[0-9].*)')}">Au moins un chiffre. </span>-->
-<!--      <span class="block" [ngClass]="{'text-primary': passwordForm?.match('(?=.*[!@#$%^&*])')}">Au moins un caractère spécial. </span>-->
-<!--      <span class="block" [ngClass]="{'text-primary': passwordForm?.match('.{8,}')}">Minimum 8 caractères.</span>-->
-<!--    </div>-->
-
-    @if (formulaireInscription.get('password')?.hasError('required')){
+    @if (formulaireEditUser.get('password')?.hasError('required')) {
       <mat-error>Le mot de passe est obligatoire</mat-error>
     }
-    @if (formulaireInscription.get('password')?.hasError('pattern')){
+    @if (formulaireEditUser.get('password')?.hasError('pattern')) {
       <mat-error>8 caractères, minuscule, majuscule, caractère spécial</mat-error>
     }
 
   </mat-form-field>
 
   <mat-form-field>
-    <mat-label>Votre nom</mat-label>
+    <mat-label>Nom</mat-label>
     <input
       matInput
       formControlName="lastname"
       placeholder="Votre nom de famille"
     />
-    @if (formulaireInscription.get("lastname")?.hasError('required')) {
+    @if (formulaireEditUser.get("lastname")?.hasError('required')) {
       <mat-error>Le nom de famille est obligatoire</mat-error>
     }
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Votre prénom</mat-label>
+    <mat-label>Prénom</mat-label>
     <input
       matInput
       formControlName="firstname"
       placeholder="Votre prénom"
     />
 
-    @if (formulaireInscription.get("firstname")?.hasError('required')) {
+    @if (formulaireEditUser.get("firstname")?.hasError('required')) {
       <mat-error>Le prénom est obligatoire</mat-error>
     }
+
   </mat-form-field>
   <mat-radio-group formControlName="gender" aria-label="Selectionner un genre">
     <mat-radio-button value="H">Homme</mat-radio-button>
@@ -85,7 +80,20 @@
     <mat-radio-button value="A">Autre</mat-radio-button>
   </mat-radio-group>
 
+  <mat-form-field>
+    <mat-label>Role</mat-label>
+    <mat-select
+      formControlName="role"
+      [compareWith]="comparateurEtat"
+    >
+      @for (role of listRole; track role.id) {
+        <mat-option [value]="role">{{ role.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
   <button type="submit" mat-raised-button color="primary">
-    Créer mon compte
+    {{ idUser == null ? "Ajouter l'utilisateur" : "Modifier l'utilisateur" }}
   </button>
+
 </form>
