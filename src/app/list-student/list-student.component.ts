@@ -11,7 +11,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatPaginatorModule} from "@angular/material/paginator";
 
 @Component({
-  selector: 'app-list-model-user',
+  selector: 'app-list-student',
   standalone: true,
   imports: [
     MatTableModule,
@@ -21,30 +21,30 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     MatInputModule,
     MatPaginatorModule
   ],
-  templateUrl: './list-model-user.component.html',
-  styleUrl: './list-model-user.component.scss'
+  templateUrl: './list-student.component.html',
+  styleUrl: './list-student.component.scss'
 })
-export class ListModelUserComponent {
+export class ListStudentComponent {
 
-  listUser: any[] = [];
-  dataSource = new MatTableDataSource(this.listUser);
+  listStudent: any[] = [];
+  dataSource = new MatTableDataSource(this.listStudent);
   http: HttpClient = inject(HttpClient);
-  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'email', 'role', 'boutons'];
+  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'email', 'boutons'];
 
 
   ngOnInit(): void {
     this.http
-      .get<any[]>("http://localhost:8080/users/list")
-      .subscribe(listUser => {
-        this.listUser = listUser;
-        this.dataSource = new MatTableDataSource(this.listUser);
+      .get<any[]>("http://localhost:8080/student/list")
+      .subscribe(listStudent => {
+        this.listStudent = listStudent;
+        this.dataSource = new MatTableDataSource(this.listStudent);
 
       });
   }
 
-  onDeleteUser(idUser: number) {
+  onDeleteUser(idStudent: number) {
     this.http
-      .delete("http://localhost:8080/users/" + idUser)
+      .delete("http://localhost:8080/student/" + idStudent)
       .subscribe(result => console.log(result))
   }
 

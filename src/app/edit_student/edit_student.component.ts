@@ -10,7 +10,7 @@ import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 import {MatOption, MatSelect} from "@angular/material/select";
 
 @Component({
-  selector: 'app-model-user',
+  selector: 'app-student',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -27,10 +27,10 @@ import {MatOption, MatSelect} from "@angular/material/select";
     MatSelect,
     MatOption
   ],
-  templateUrl: './edit_model_user.component.html',
-  styleUrl: './edit_model_user.component.scss'
+  templateUrl: './edit_student.component.html',
+  styleUrl: './edit_student.component.scss'
 })
-export class EditModelUserComponent {
+export class EditStudentComponent {
 
   http: HttpClient = inject(HttpClient);
   router: Router = inject(Router);
