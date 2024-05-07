@@ -48,7 +48,7 @@ export class EditStudentComponent {
   formulaireEditStudent: FormGroup = this.formBuilder.group(
     {
       email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required, Validators.pattern(this.passwordRegex)]],
+      password: ["ToChangePassword123!", [Validators.required, Validators.pattern(this.passwordRegex)]],
       lastname: ["", [Validators.required]],
       firstname: ["", [Validators.required]],
       gender: ["", [Validators.required]],
