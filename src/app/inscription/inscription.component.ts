@@ -11,6 +11,7 @@ import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonToggle} from "@angular/material/button-toggle";
+import {NgClass, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-inscription',
@@ -29,11 +30,15 @@ import {MatButtonToggle} from "@angular/material/button-toggle";
     MatOption,
     MatSelect,
     MatButtonToggle
+    MatSelect,
+    NgClass,
+    NgIf
   ],
   templateUrl: './inscription.component.html',
   styleUrl: './inscription.component.scss'
 })
 export class InscriptionComponent {
+  passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   formBuilder: FormBuilder = inject(FormBuilder);
   http: HttpClient = inject(HttpClient);
   router: Router = inject(Router);
@@ -41,7 +46,7 @@ export class InscriptionComponent {
   // champs obligatoires
   formulaireInscription: FormGroup = this.formBuilder.group({
     email: ['', [Validators.email, Validators.required]],
-    password: ['', [Validators.required]],
+    password: ['', [Validators.required, Validators.pattern(this.passwordRegex)]],
     lastname: ['', [Validators.required]],
     firstname: ['', [Validators.required]],
     gender: ['', []]
@@ -49,8 +54,13 @@ export class InscriptionComponent {
 
   afficheMotDePasse = false;
   erreurConnexion: boolean = false;
+  passwordForm: string = (this.formulaireInscription.get('password') !== null) ? this.formulaireInscription.get('password')?.value : '';
+
+
+
 
   onInscription(): void {
+
     // test de la validité du formulaire
     if (this.formulaireInscription.valid) {
       this.http
@@ -69,5 +79,6 @@ export class InscriptionComponent {
         });
     }
   }
+
 }
 
