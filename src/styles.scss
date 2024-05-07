@@ -1,30 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
-
-:root {
-  --main-bg-color: #080B21;
-  --primary--: #C5E7E2;
-  --secondary--: #D87C6E;
-  --third--: #23061E;
-  --white--: #FFEBEB;
-  --black--:#212121;
+html,
+body{
+  height: 100%;
+  box-sizing: border-box;
+  font-family: Sarabun, "Nunito sans", sans-serif;
+  background: linear-gradient(#080B21, #23061E);
+  color: #C5E7E2;
+  h1, h2, h3, h4, h5, h6{
+    text-align: center;
+    font-family: Spinnaker, sans-serif;
+  }
+}
+ul{
+  list-style: none;
+}
+a{
+  text-decoration: none;
 }
 
-html, body { height: 100%; }
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Sarabun, Nunito, N, sans-serif;
-  background-color: #080B21;
-  color: #C5E7E2; }
-
-h1, h2, h3, h4, h5, h6{
-  font-family: Spinnaker, sans-serif;
-}
-
-.login{
-  margin: 20px auto 20px;
-  display:flex;
+.formulaire {
+  display: flex;
+  margin: 10px auto;
   flex-direction: column;
   max-width: 400px;
-  margin :1em;
+}
+
+a,button {
+  &.button.mdc-button {
+    width:200px;
+    border-radius: 8px;
+    padding: 5px;
+    background-color: #ffebeb;
+    color: #23061E;
+
+    &:hover{
+      opacity: 0.8;
+    }
+  }
+
 }

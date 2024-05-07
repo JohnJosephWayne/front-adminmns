@@ -1,7 +1,7 @@
 <h2>INSCRIPTION</h2>
-<form class="formLog" [formGroup]="formulaireInscription" (ngSubmit)="onInscription()">
+<form class="formulaire" [formGroup]="formulaireInscription" (ngSubmit)="onInscription()">
   <mat-form-field>
-    <mat-label>Email</mat-label>
+    <mat-label class="label-color">Email</mat-label>
     <input
       matInput
       formControlName="email"
@@ -17,7 +17,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <mat-label>Mot de passe</mat-label>
+    <mat-label class="label-color">Mot de passe</mat-label>
     <input
       matInput
       formControlName="password"
@@ -41,7 +41,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <mat-label>Votre nom</mat-label>
+    <mat-label class="label-color">Votre nom</mat-label>
     <input
       matInput
       formControlName="lastname"
@@ -52,7 +52,7 @@
     }
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Votre prénom</mat-label>
+    <mat-label class="label-color">Votre prénom</mat-label>
     <input
       matInput
       formControlName="firstname"
@@ -63,13 +63,13 @@
       <mat-error>Le prénom est obligatoire</mat-error>
     }
   </mat-form-field>
-  <mat-radio-group formControlName="gender" aria-label="Selectionner un genre">
+  <mat-radio-group style="margin: 0 auto 10px" formControlName="gender" aria-label="Selectionner un genre">
     <mat-radio-button value="H">Homme</mat-radio-button>
     <mat-radio-button value="F">Femme</mat-radio-button>
     <mat-radio-button value="A">Autre</mat-radio-button>
   </mat-radio-group>
 
-  <button type="submit" mat-raised-button color="primary">
+  <button mat-flat-button class="button" type="submit">
     Créer mon compte
   </button>
 </form>

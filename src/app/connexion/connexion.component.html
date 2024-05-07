@@ -1,9 +1,11 @@
-<form class="formLog" (ngSubmit)="onConnexion()" [formGroup]="formulaireConnexion">
+<form class=" formulaire" (ngSubmit)="onConnexion()" [formGroup]="formulaireConnexion">
   <h1>Se connecter</h1>
-  <br>
   <mat-form-field>
-    <mat-label>Email</mat-label>
-    <input matInput formControlName="email">
+    <mat-label class="label-color">Email</mat-label>
+    <input
+      type="email"
+      matInput
+      formControlName="email">
     @if (formulaireConnexion.get("email")?.hasError('required')) {
       <mat-error>L'email est obligatoire</mat-error>
     }
@@ -12,7 +14,7 @@
     }
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Mot de passe</mat-label>
+    <mat-label class="label-color">Mot de passe</mat-label>
     <input
       matInput
       formControlName="password"
@@ -38,15 +40,16 @@
     <mat-error>Les identifiants sont incorrects</mat-error>
   }
 
-  <button mat-raised-button style="background-color: #080B21; color:#C5E7E2">Se connecter</button>
+  <button mat-flat-button class="button">Se connecter</button>
 
-  <br>
   <br>
 
 </form>
 
-<p>Vous n'avez pas encore de compte ?</p>
-<br>
-<button routerLink="/inscription" type="button" mat-stroked-button color="var(--secondary--)">
-  S'inscrire
-</button>
+<div class="formulaire">
+  <p>Vous n'avez pas encore de compte ?</p>
+  <br>
+  <button mat-flat-button routerLink="/inscription" class="button">
+    S'inscrire
+  </button>
+</div>

@@ -10,6 +10,7 @@ import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonToggle} from "@angular/material/button-toggle";
 
 @Component({
   selector: 'app-inscription',
@@ -26,7 +27,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatRadioButton,
     MatRadioGroup,
     MatOption,
-    MatSelect
+    MatSelect,
+    MatButtonToggle
   ],
   templateUrl: './inscription.component.html',
   styleUrl: './inscription.component.scss'
@@ -56,7 +58,7 @@ export class InscriptionComponent {
         .subscribe({
           next: (resultat) => {
             //renvoi vers la page d'accueil après inscription
-            this.router.navigateByUrl('/accueil');
+            this.router.navigateByUrl('/connexion');
             console.log(resultat);
           },
           error: (reponse) => {
