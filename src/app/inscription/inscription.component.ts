@@ -29,7 +29,7 @@ import {NgClass, NgIf} from "@angular/common";
     MatRadioGroup,
     MatOption,
     MatSelect,
-    MatButtonToggle
+    MatButtonToggle,
     MatSelect,
     NgClass,
     NgIf
