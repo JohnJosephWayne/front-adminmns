@@ -1,0 +1,56 @@
+<a class="add-button" routerLink="/edit-employee" mat-raised-button color="primary">Ajouter un employé</a>
+
+<br>
+<br>
+
+<!--<mat-form-field>-->
+<!--  <mat-label>Rechercher</mat-label>-->
+<!--  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Martin" #input>-->
+<!--</mat-form-field>-->
+
+<table mat-table [dataSource]="listEmployee" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let employee"> {{employee.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="firstname">
+    <th mat-header-cell *matHeaderCellDef> NOM </th>
+    <td mat-cell *matCellDef="let employee"> {{employee.lastname}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="lastname">
+    <th mat-header-cell *matHeaderCellDef> PRENOM </th>
+    <td mat-cell *matCellDef="let employee"> {{employee.firstname}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef> EMAIL </th>
+    <td mat-cell *matCellDef="let employee"> {{employee.email}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="department">
+    <th mat-header-cell *matHeaderCellDef> DEPARTEMENT </th>
+    <td mat-cell *matCellDef="let employee"> {{employee.department}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="boutons">
+    <th mat-header-cell *matHeaderCellDef> MODIFIER/SUPPRIMER </th>
+    <td mat-cell *matCellDef="let employee">
+      <button mat-raised-button [routerLink]="['/edit-employee', employee.id]"  color="primary">Modifier</button>
+      <button mat-raised-button (click)="onDeleteEmployee(employee.id)"  color="accent">Supprimer</button>
+    </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <!--  <tr class="mat-row" *matNoDataRow>-->
+  <!--    <td class="mat-cell" colspan="4">Aucun match "{{input.value}}"</td>-->
+  <!--  </tr>-->
+
+</table>
