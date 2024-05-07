@@ -1,5 +1,5 @@
 import {Routes} from '@angular/router';
-import {AccueilComponent} from "./accueil/accueil.component";
+import {AccueilAdministratifComponent} from "./accueil-administratif/accueil-administratif.component";
 import {ConnexionComponent} from "./connexion/connexion.component";
 import {PageNonTrouveeComponent} from "./page_non_trouvee/pagenontrouvee.component";
 import {InscriptionComponent} from "./inscription/inscription.component";
@@ -7,7 +7,7 @@ import {EditStudentComponent} from "./edit_student/edit_student.component";
 import {ListStudentComponent} from "./list-student/list-student.component";
 
 export const routes: Routes = [
-  {path: "accueil", component: AccueilComponent},
+  {path: "accueil", component: AccueilAdministratifComponent},
   {path: "connexion", component: ConnexionComponent},
   {path: "inscription", component: InscriptionComponent},
   {path: "edit-student", component: EditStudentComponent},

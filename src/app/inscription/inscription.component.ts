@@ -56,9 +56,6 @@ export class InscriptionComponent {
   erreurConnexion: boolean = false;
   passwordForm: string = (this.formulaireInscription.get('password') !== null) ? this.formulaireInscription.get('password')?.value : '';
 
-
-
-
   onInscription(): void {
 
     // test de la validité du formulaire
