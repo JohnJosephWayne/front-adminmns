@@ -94,11 +94,25 @@
 
   </mat-form-field>
 
-  <mat-radio-group formControlName="gender" aria-label="Selectionner un genre">
-    <mat-radio-button value="H">Homme</mat-radio-button>
+  <mat-radio-group
+    formControlName="gender"
+    aria-label="Selectionner un genre"
+  >
+    <mat-radio-button value="M">Homme</mat-radio-button>
     <mat-radio-button value="F">Femme</mat-radio-button>
     <mat-radio-button value="A">Autre</mat-radio-button>
   </mat-radio-group>
+
+  <mat-form-field>
+    <mat-label>Role</mat-label>
+    <mat-select
+      formControlName="role"
+      [compareWith]="comparateurEtat">
+      @for (role of rolList; track role.id) {
+        <mat-option [value]="role">{{ role.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
 
 
   <button type="submit" mat-raised-button color="primary">

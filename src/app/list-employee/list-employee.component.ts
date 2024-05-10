@@ -45,7 +45,7 @@ import {RouterLink} from "@angular/router";
 export class ListEmployeeComponent {
   listEmployee: any[] = [];
   http: HttpClient = inject(HttpClient);
-  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'email', 'department', 'boutons'];
+  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'email', 'department', 'role', 'boutons'];
 
   ngOnInit(): void {
     this.http

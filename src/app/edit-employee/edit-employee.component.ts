@@ -7,6 +7,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
+import {MatOption, MatSelect} from "@angular/material/select";
 
 @Component({
   selector: 'app-edit-employee',
@@ -23,7 +24,9 @@ import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
     MatRadioGroup,
     MatSuffix,
     ReactiveFormsModule,
-    MatButton
+    MatButton,
+    MatSelect,
+    MatOption
   ],
   templateUrl: './edit-employee.component.html',
   styleUrl: './edit-employee.component.scss'
@@ -36,6 +39,7 @@ export class EditEmployeeComponent {
   erreurConnexion: boolean = false;
   idEmployee: number | null = null;
   afficheMotDePasse = false;
+  rolList: any[] = [];
   passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   formulaireEditEmployee: FormGroup = this.formBuilder.group(
@@ -46,7 +50,7 @@ export class EditEmployeeComponent {
       firstname: ["", [Validators.required]],
       gender: ["", [Validators.required]],
       department: ['', [Validators.required]],
-      role: ['', [Validators.required]],
+      role: [null, [Validators.required]],
     }
   )
 
@@ -66,6 +70,10 @@ export class EditEmployeeComponent {
           })
       }
     })
+
+    this.http
+      .get<any []>("http://localhost:8080/role/list")
+      .subscribe(result => this.rolList = result);
   }
 
   onSubmit() {
@@ -86,7 +94,7 @@ export class EditEmployeeComponent {
 
   comparateurEtat(a: any, b: any) {
 
-    return a != null && b != null && a.id == b.id;
+    return a != null && b != null && a.roleId == b.roleId;
   }
 
 }
