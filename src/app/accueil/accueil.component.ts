@@ -6,6 +6,7 @@ import { Absence } from "../model/absence";
 import { Lateness } from "../model/lateness";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {MatDivider} from "@angular/material/divider";
+import {LatenessServiceService} from "../service/lateness-service.service";
 
 @Component({
   selector: 'app-accueil',
@@ -20,6 +21,7 @@ import {MatDivider} from "@angular/material/divider";
 })
 export class AccueilComponent implements OnInit {
   http: HttpClient = inject(HttpClient);
+  latenessService: LatenessServiceService = inject(LatenessServiceService);
   authentification: AuthentificationService = inject(AuthentificationService)
 
   user: any;
@@ -37,17 +39,10 @@ export class AccueilComponent implements OnInit {
         this.user = user;
       });
 
-    this.http
-      .get<any[]>("http://localhost:8080/lateness/list")
-      .subscribe((invalidLateness: Lateness[]) => {
-        invalidLateness.forEach((lateness) => {
-          if (lateness.validity === null) {
-            this.invalidLateness.push(lateness);
-          }
-        });
+    this.latenessService._invalidLateness.subscribe(
+      invalidLateness => this.invalidLateness = invalidLateness)
 
-        this.nbToTreatLateness = this.invalidLateness.length;
-      });
+    this.latenessService.refresh()
 
     this.http
       .get<any[]>("http://localhost:8080/absence/list")
