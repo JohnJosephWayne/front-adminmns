@@ -4,12 +4,19 @@ import {HeaderComponent} from "./header/header.component";
 import {ConnexionComponent} from "./connexion/connexion.component";
 import {InscriptionComponent} from "./inscription/inscription.component";
 import {AuthentificationService} from "./authentification.service";
-import {FormGroup, Validators} from "@angular/forms";
+import {AccueilComponent} from "./accueil/accueil.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, HeaderComponent, ConnexionComponent, InscriptionComponent],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    HeaderComponent,
+    ConnexionComponent,
+    InscriptionComponent,
+    AccueilComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -18,9 +25,7 @@ export class AppComponent {
 
   authentication: AuthentificationService = inject(AuthentificationService)
 
-
   ngOnInit(){
     this.authentication.authentificationAvecJwtLocalStorage()
-
   }
 }

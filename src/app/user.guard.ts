@@ -6,7 +6,7 @@ export const userGuard: CanActivateFn = (route, state) => {
   const authentification = inject(AuthentificationService);
   const router = inject(Router);
 
-  return authentification.utilisateur != null
+  return authentification.user != null
     ? true
     : router.parseUrl('/connexion');
 };

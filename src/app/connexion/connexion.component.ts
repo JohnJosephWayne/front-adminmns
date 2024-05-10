@@ -59,7 +59,6 @@ export class ConnexionComponent {
             localStorage.setItem('jwt', resultat.jwt);
             this.authentication.authentificationAvecJwtLocalStorage()
             this.router.navigateByUrl('/accueil');
-            console.log(resultat);
           },
           error: (reponse) => {
             this.erreurConnexion = true;
