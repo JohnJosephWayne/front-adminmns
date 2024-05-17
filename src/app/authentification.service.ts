@@ -25,4 +25,6 @@ export class AuthentificationService {
     localStorage.removeItem('jwt');
     this.user = null;
   }
+
+
 }

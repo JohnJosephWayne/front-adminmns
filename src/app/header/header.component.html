@@ -2,8 +2,8 @@
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div class="nav-justified me-auto, mb-2, mb-lg-0, me-2">
-
-        @if (authentification.user) {
+{{authentification.user.role.name}}
+        @if (authentification.user.role.name == "ADMIN" || authentification.user.role.name == "VALIDATOR") {
           <div class="button-row">
             <div class="nav-item">
               <button mat-flat-button class="button nav-link" routerLink="/accueil">
@@ -30,8 +30,35 @@
                 Déconnexion
               </button>
             </div>
-
           </div>
+            } @else if (authentification.user?.role.name == "STUDENT"){
+              <div class="button-row">
+                <div class="nav-item">
+                  <button mat-flat-button class="button nav-link" routerLink="/accueil">
+                    Accueil
+                  </button>
+                </div>
+                <div class="nav-item">
+                  <button mat-flat-button class="button nav-link" routerLink="#">
+                    Déposer une absence
+                  </button>
+                </div>
+                <div class="nav-item">
+                  <button mat-flat-button class="button nav-link" routerLink="#">
+                    Déposer un retard
+                  </button>
+                </div>
+                <div class="nav-item">
+                  <button mat-flat-button class="button nav-link" routerLink="#">
+                    Déposer un dossier
+                  </button>
+                </div>
+                <div class="button nav-item">
+                  <button mat-flat-button class="button nav-link" (click)="onDeconnexion()">
+                    Déconnexion
+                  </button>
+                </div>
+              </div>
         } @else {
           <div class="button-row">
             <div class="nav-item">
@@ -57,7 +84,3 @@
     </div>
   </div>
 </nav>
-
-
-
-

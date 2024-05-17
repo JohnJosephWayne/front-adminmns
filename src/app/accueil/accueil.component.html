@@ -1,6 +1,6 @@
-  @if (user?.role.name == "ADMIN") {
-    <h3>{{ 'Bonjour' + ' ' + user.lastname + ' ' + user.firstname }}</h3>
-    <mat-divider></mat-divider>
+@if (user?.role.name == "ADMIN" || user?.role.name == "VALIDATOR") {
+  <h3>{{ 'Bonjour' + ' ' + user.lastname + ' ' + user.firstname }}</h3>
+      <mat-divider></mat-divider>
 
     <div class="dashboard">
     <mat-grid-list cols="3" rowHeight="100px">
@@ -9,8 +9,34 @@
       <mat-grid-tile><h4>Dossiers d'inscription à traiter</h4></mat-grid-tile>
 
       <mat-grid-tile class="tile">{{ this.invalidLateness.length}}</mat-grid-tile>
-      <mat-grid-tile class="tile">{{ nbToTreatAbsences }}</mat-grid-tile>
-      <mat-grid-tile class="tile">{{ nbToTreatFolder }}</mat-grid-tile>
+      <mat-grid-tile class="tile">{{ this.invalidAbsences.length }}</mat-grid-tile>
+      <mat-grid-tile class="tile">{{ this.invalidFolders.length }}</mat-grid-tile>
+
+      <mat-grid-tile><h4>Retards totaux</h4></mat-grid-tile>
+      <mat-grid-tile><h4>Absences totaux</h4></mat-grid-tile>
+      <mat-grid-tile><h4>Dossiers d'inscription totaux</h4></mat-grid-tile>
+
+      <mat-grid-tile>{{ this.latenessList.length }}</mat-grid-tile>
+      <mat-grid-tile>{{ this.absenceList.length }}</mat-grid-tile>
+      <mat-grid-tile>{{ this.folderList.length }}</mat-grid-tile>
+
+    </mat-grid-list>
+
+    </div>
+
+  } @else {
+  <h3>{{ 'Bonjour' + ' ' + user.lastname + ' ' + user.firstname }}</h3>
+  <mat-divider></mat-divider>
+
+  <div class="dashboard">
+    <mat-grid-list cols="3" rowHeight="100px">
+      <mat-grid-tile><h4>Retards à traiter</h4></mat-grid-tile>
+      <mat-grid-tile><h4>Absences à traiter</h4></mat-grid-tile>
+      <mat-grid-tile><h4>Dossiers d'inscription à traiter</h4></mat-grid-tile>
+
+      <mat-grid-tile class="tile">{{ this.invalidLateness.length}}</mat-grid-tile>
+      <mat-grid-tile class="tile">{{ this.invalidAbsences.length }}</mat-grid-tile>
+      <mat-grid-tile class="tile">{{ this.invalidFolders.length }}</mat-grid-tile>
 
       <mat-grid-tile><h4>Retards totaux</h4></mat-grid-tile>
       <mat-grid-tile><h4>Absences totaux</h4></mat-grid-tile>
@@ -22,9 +48,7 @@
 
     </mat-grid-list>
 
-    </div>
+  </div>
 
-  } @else {
-    user
   }
 

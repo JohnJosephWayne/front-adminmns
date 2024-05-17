@@ -1,12 +1,11 @@
 import {Component, inject, OnInit} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { AuthentificationService } from "../authentification.service";
-import { Folder } from "../model/folder";
-import { Absence } from "../model/absence";
-import { Lateness } from "../model/lateness";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {MatDivider} from "@angular/material/divider";
 import {LatenessServiceService} from "../service/lateness-service.service";
+import {AbsenceServiceService} from "../service/absence-service.service";
+import {StudentFolderServiceService} from "../service/student-folder-service.service";
 
 @Component({
   selector: 'app-accueil',
@@ -22,6 +21,8 @@ import {LatenessServiceService} from "../service/lateness-service.service";
 export class AccueilComponent implements OnInit {
   http: HttpClient = inject(HttpClient);
   latenessService: LatenessServiceService = inject(LatenessServiceService);
+  absenceService: AbsenceServiceService = inject(AbsenceServiceService);
+  studentFolderService : StudentFolderServiceService = inject(StudentFolderServiceService);
   authentification: AuthentificationService = inject(AuthentificationService)
 
   user: any;
@@ -31,6 +32,9 @@ export class AccueilComponent implements OnInit {
   nbToTreatAbsences: number = 0;
   invalidLateness: any[] = [];
   nbToTreatLateness: number = 0;
+  absenceList: any[] = [];
+  folderList: any[] = [];
+  latenessList: any[] = [];
 
   ngOnInit(): void {
     this.http
@@ -41,29 +45,26 @@ export class AccueilComponent implements OnInit {
 
     this.latenessService._invalidLateness.subscribe(
       invalidLateness => this.invalidLateness = invalidLateness)
-
     this.latenessService.refresh()
 
-    this.http
-      .get<any[]>("http://localhost:8080/absence/list")
-      .subscribe((invalidAbsences: Absence[]) => {
-        invalidAbsences.forEach((absence) => {
-          if (absence.validity === null) {
-            this.invalidAbsences.push(absence);
-          }
-        });
-        this.nbToTreatAbsences = this.invalidAbsences.length;
-      });
+    this.latenessService._listLateness.subscribe((
+      latenessList => this.latenessList = latenessList));
+    this.latenessService.getListLateness()
 
-    this.http
-      .get<any[]>("http://localhost:8080/student-inscription-folder/list")
-      .subscribe((invalidFolders: Folder[]) => {
-        invalidFolders.forEach((folder) => {
-          if (folder.validity === null) {
-            this.invalidFolders.push(folder);
-          }
-        });
-        this.nbToTreatFolder = this.invalidFolders.length;
-      });
+    this.absenceService._invalidAbsences.subscribe(
+      invalidAbsences => this.invalidAbsences = invalidAbsences)
+    this.absenceService.refresh()
+
+    this.absenceService._listAbsences.subscribe((
+      absenceList => this.absenceList = absenceList));
+    this.absenceService.getListAbsence()
+
+    this.studentFolderService._studentFolder.subscribe(
+      invalidFolder => this.invalidFolders = invalidFolder)
+    this.studentFolderService.refresh()
+
+    this.studentFolderService._listFolder.subscribe((
+      folderList => this.folderList = folderList));
+    this.studentFolderService.getListFolder();
   }
 }
