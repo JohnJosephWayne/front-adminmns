@@ -38,7 +38,6 @@ export class ConnexionComponent {
   http: HttpClient = inject(HttpClient);
   router: Router = inject(Router);
   authentication: AuthentificationService = inject(AuthentificationService)
-  user1: User = inject(User);
 
 
   formulaireConnexion: FormGroup = this.formBuilder.group({
@@ -49,7 +48,7 @@ export class ConnexionComponent {
   erreurConnexion: boolean = false;
   afficheMotDePasse = false;
 
-  user = new User();
+  user?: User;
 
   onConnexion() {
 
@@ -63,7 +62,6 @@ export class ConnexionComponent {
           next: (resultat) => {
             localStorage.setItem('jwt', resultat.jwt);
             this.authentication.authentificationAvecJwtLocalStorage()
-            this.authentication.user.get(this.user.role);
             this.router.navigateByUrl('/accueil');
           },
           error: (reponse) => {

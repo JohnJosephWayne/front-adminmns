@@ -17,15 +17,13 @@ export class HeaderComponent implements OnInit{
 
   authentification = inject(AuthentificationService);
   router = inject(Router);
-  user = inject(User)
-  http: HttpClient = inject(HttpClient);
+  userInfo: any //user de la bdd
 
   ngOnInit(): void {
-    this.http
-      .get("http://localhost:8080/user-by-email/" + this.authentification.user.sub)
-      .subscribe((user: any) => {
-        this.user = user;
-      });
+
+    this.authentification._connectedUser.subscribe(userInfo => {
+        this.userInfo = userInfo;
+    })
   }
   onDeconnexion() {
     this.authentification.deconnexion();

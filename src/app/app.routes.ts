@@ -5,6 +5,7 @@ import {PageNonTrouveeComponent} from "./page_non_trouvee/pagenontrouvee.compone
 import {InscriptionComponent} from "./inscription/inscription.component";
 import {EditStudentComponent} from "./edit_student/edit_student.component";
 import {ListStudentComponent} from "./list-student/list-student.component";
+import {ValidationAbsenceComponent} from "./validation_absence/validation-absence.component";
 
 export const routes: Routes = [
   {path: "accueil", component: AccueilComponent},
@@ -13,6 +14,7 @@ export const routes: Routes = [
   {path: "edit-student", component: EditStudentComponent},
   {path: "edit-student/:id", component: EditStudentComponent},
   {path: "list-student", component: ListStudentComponent},
+  {path: "list-absence", component: ValidationAbsenceComponent},
   {path: "", redirectTo: "accueil", pathMatch: 'full'},
   {path: "**", component: PageNonTrouveeComponent}
 ];

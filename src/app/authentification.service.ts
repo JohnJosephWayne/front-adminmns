@@ -1,10 +1,15 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
+import {BehaviorSubject} from "rxjs";
+import {User} from "./model/user";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthentificationService {
-  user: any;
+
+  readonly _connectedUser: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  http: HttpClient = inject(HttpClient);
 
   constructor() {}
 
@@ -17,13 +22,21 @@ export class AuthentificationService {
       const bodyJson = window.atob(bodyBase64);
       const body = JSON.parse(bodyJson);
 
-      this.user = body;
+      this.http
+        .get("http://localhost:8080/user-by-email/" + body.sub)
+        .subscribe((userInfo: any) => {
+
+          this._connectedUser.next(userInfo);
+        });
+
+    } else {
+      this._connectedUser.next(null);
     }
   }
 
   deconnexion() {
     localStorage.removeItem('jwt');
-    this.user = null;
+    this._connectedUser.next(null);
   }
 
 

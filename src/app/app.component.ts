@@ -27,5 +27,6 @@ export class AppComponent {
 
   ngOnInit(){
     this.authentication.authentificationAvecJwtLocalStorage()
+
   }
 }

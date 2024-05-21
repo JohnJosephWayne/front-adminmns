@@ -1,5 +1,5 @@
-@if (user?.role.name == "ADMIN" || user?.role.name == "VALIDATOR") {
-  <h3>{{ 'Bonjour' + ' ' + user.lastname + ' ' + user.firstname }}</h3>
+@if (userInfo?.role?.name == "ADMIN" || userInfo?.role?.name == "VALIDATOR") {
+  <h3>{{ 'Bonjour' + ' ' + userInfo.lastname + ' ' + userInfo.firstname }}</h3>
       <mat-divider></mat-divider>
 
     <div class="dashboard">
@@ -25,7 +25,7 @@
     </div>
 
   } @else {
-  <h3>{{ 'Bonjour' + ' ' + user.lastname + ' ' + user.firstname }}</h3>
+  <h3>{{ 'Bonjour' + ' ' + userInfo?.lastname + ' ' + userInfo?.firstname }}</h3>
   <mat-divider></mat-divider>
 
   <div class="dashboard">

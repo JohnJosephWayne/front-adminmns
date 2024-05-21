@@ -2,8 +2,8 @@
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div class="nav-justified me-auto, mb-2, mb-lg-0, me-2">
-{{authentification.user.role.name}}
-        @if (authentification.user.role.name == "ADMIN" || authentification.user.role.name == "VALIDATOR") {
+
+        @if (userInfo && (userInfo.role.name == "ADMIN" || userInfo.role.name == "VALIDATOR")) {
           <div class="button-row">
             <div class="nav-item">
               <button mat-flat-button class="button nav-link" routerLink="/accueil">
@@ -11,7 +11,7 @@
               </button>
             </div>
             <div class="nav-item">
-              <button mat-flat-button class="button nav-link" routerLink="#">
+              <button mat-flat-button class="button nav-link" routerLink="/list-absence">
                 Consulter les absences
               </button>
             </div>
@@ -31,7 +31,7 @@
               </button>
             </div>
           </div>
-            } @else if (authentification.user?.role.name == "STUDENT"){
+            } @else if (userInfo && userInfo.role.name == "STUDENT"){
               <div class="button-row">
                 <div class="nav-item">
                   <button mat-flat-button class="button nav-link" routerLink="/accueil">

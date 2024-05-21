@@ -2,6 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject} from "rxjs";
 import {Absence} from "../model/absence";
+import {User} from "../model/user";
 
 
 @Injectable({
@@ -29,7 +30,8 @@ export class AbsenceServiceService {
       .get<Absence[]>("http://localhost:8080/absence/list")
       .subscribe((absenceList: Absence[]) => {
         this._listAbsences.next(absenceList);
-      });
+      })
+    return this._listAbsences;
   }
 }
 

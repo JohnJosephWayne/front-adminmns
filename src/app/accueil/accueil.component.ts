@@ -25,7 +25,7 @@ export class AccueilComponent implements OnInit {
   studentFolderService : StudentFolderServiceService = inject(StudentFolderServiceService);
   authentification: AuthentificationService = inject(AuthentificationService)
 
-  user: any;
+  userInfo : any
   invalidFolders: any[] = [];
   nbToTreatFolder: number = 0;
   invalidAbsences: any[] = [];
@@ -37,34 +37,37 @@ export class AccueilComponent implements OnInit {
   latenessList: any[] = [];
 
   ngOnInit(): void {
-    this.http
-      .get("http://localhost:8080/user-by-email/" + this.authentification.user.sub)
-      .subscribe((user: any) => {
-        this.user = user;
-      });
 
-    this.latenessService._invalidLateness.subscribe(
-      invalidLateness => this.invalidLateness = invalidLateness)
-    this.latenessService.refresh()
+    this.authentification._connectedUser.subscribe(userInfo => {
+      this.userInfo = userInfo;
 
-    this.latenessService._listLateness.subscribe((
-      latenessList => this.latenessList = latenessList));
-    this.latenessService.getListLateness()
+      if(this.userInfo) {
 
-    this.absenceService._invalidAbsences.subscribe(
-      invalidAbsences => this.invalidAbsences = invalidAbsences)
-    this.absenceService.refresh()
+        this.latenessService._invalidLateness.subscribe(
+          invalidLateness => this.invalidLateness = invalidLateness)
+        this.latenessService.refresh()
 
-    this.absenceService._listAbsences.subscribe((
-      absenceList => this.absenceList = absenceList));
-    this.absenceService.getListAbsence()
+        this.latenessService._listLateness.subscribe((
+          latenessList => this.latenessList = latenessList));
+        this.latenessService.getListLateness()
 
-    this.studentFolderService._studentFolder.subscribe(
-      invalidFolder => this.invalidFolders = invalidFolder)
-    this.studentFolderService.refresh()
+        this.absenceService._invalidAbsences.subscribe(
+          invalidAbsences => this.invalidAbsences = invalidAbsences)
+        this.absenceService.refresh()
 
-    this.studentFolderService._listFolder.subscribe((
-      folderList => this.folderList = folderList));
-    this.studentFolderService.getListFolder();
+        this.absenceService._listAbsences.subscribe((
+          absenceList => this.absenceList = absenceList));
+        this.absenceService.getListAbsence()
+
+        this.studentFolderService._studentFolder.subscribe(
+          invalidFolder => this.invalidFolders = invalidFolder)
+        this.studentFolderService.refresh()
+
+        this.studentFolderService._listFolder.subscribe((
+          folderList => this.folderList = folderList));
+        this.studentFolderService.getListFolder();
+      }
+    })
+
   }
 }
