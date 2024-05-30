@@ -45,7 +45,7 @@ export class EditEmployeeComponent {
   formulaireEditEmployee: FormGroup = this.formBuilder.group(
     {
       email: ["", [Validators.required, Validators.email]],
-      password: ["ToChangePassword123!", [Validators.required, Validators.pattern(this.passwordRegex)]],
+      password: ["", [Validators.required, Validators.pattern(this.passwordRegex)]],
       lastname: ["", [Validators.required]],
       firstname: ["", [Validators.required]],
       gender: ["", [Validators.required]],
@@ -83,8 +83,12 @@ export class EditEmployeeComponent {
       console.log(this.idEmployee)
 
       if (this.idEmployee) {
-        this.http.put("http://localhost:8080/employee/" + this.idEmployee, this.formulaireEditEmployee.value)
+
+        const utilisateur = {...this.formulaireEditEmployee.value, password : "ToChangePassword2?"}
+
+        this.http.put("http://localhost:8080/employee/" + this.idEmployee, utilisateur)
           .subscribe(result => this.router.navigateByUrl("/list-employee"));
+
       } else {
         this.http.post("http://localhost:8080/employee", this.formulaireEditEmployee.value)
           .subscribe(result => this.router.navigateByUrl("/list-employee"));

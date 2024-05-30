@@ -48,7 +48,7 @@ export class EditStudentComponent {
   formulaireEditStudent: FormGroup = this.formBuilder.group(
     {
       email: ["", [Validators.required, Validators.email]],
-      password: ["ToChangePassword123!", [Validators.required, Validators.pattern(this.passwordRegex)]],
+      password: ["", [Validators.required, Validators.pattern(this.passwordRegex)]],
       lastname: ["", [Validators.required]],
       firstname: ["", [Validators.required]],
       gender: ["", [Validators.required]],
@@ -90,7 +90,10 @@ export class EditStudentComponent {
       console.log(this.idStudent)
 
       if (this.idStudent) {
-        this.http.put("http://localhost:8080/student/" + this.idStudent, this.formulaireEditStudent.value)
+
+        const utilisateur = {...this.formulaireEditStudent.value, password : "ToChangePassword2?"}
+
+        this.http.put("http://localhost:8080/student/" + this.idStudent, utilisateur)
           .subscribe(result => this.router.navigateByUrl("/list-student"));
       } else {
         this.http.post("http://localhost:8080/student", this.formulaireEditStudent.value)
