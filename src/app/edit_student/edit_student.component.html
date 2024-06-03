@@ -1,6 +1,6 @@
-<h2>Ajouter/Modifier un utilisateur </h2>
+<h2>Ajouter/Modifier un étudiant </h2>
 
-<form class="formLog" [formGroup]="formulaireEditUser" (ngSubmit)="onSubmit()">
+<form class="formLog" [formGroup]="formulaireEditStudent" (ngSubmit)="onSubmit()">
 
   <mat-form-field>
     <mat-label>Email</mat-label>
@@ -10,10 +10,10 @@
       placeholder="Ex. john.doe@domain.com"
     />
 
-    @if (formulaireEditUser.get("email")?.hasError('required')) {
+    @if (formulaireEditStudent.get("email")?.hasError('required')) {
       <mat-error>L'email est obligatoire</mat-error>
     }
-    @if (formulaireEditUser.get("email")?.hasError('email')) {
+    @if (formulaireEditStudent.get("email")?.hasError('email')) {
       <mat-error>L'email est mal formé</mat-error>
     }
   </mat-form-field>
@@ -41,10 +41,10 @@
       </mat-icon>
     </button>
 
-    @if (formulaireEditUser.get('password')?.hasError('required')) {
+    @if (formulaireEditStudent.get('password')?.hasError('required')) {
       <mat-error>Le mot de passe est obligatoire</mat-error>
     }
-    @if (formulaireEditUser.get('password')?.hasError('pattern')) {
+    @if (formulaireEditStudent.get('password')?.hasError('pattern')) {
       <mat-error>8 caractères, minuscule, majuscule, caractère spécial</mat-error>
     }
 
@@ -57,10 +57,11 @@
       formControlName="lastname"
       placeholder="Votre nom de famille"
     />
-    @if (formulaireEditUser.get("lastname")?.hasError('required')) {
+    @if (formulaireEditStudent.get("lastname")?.hasError('required')) {
       <mat-error>Le nom de famille est obligatoire</mat-error>
     }
   </mat-form-field>
+
   <mat-form-field>
     <mat-label>Prénom</mat-label>
     <input
@@ -69,11 +70,12 @@
       placeholder="Votre prénom"
     />
 
-    @if (formulaireEditUser.get("firstname")?.hasError('required')) {
+    @if (formulaireEditStudent.get("firstname")?.hasError('required')) {
       <mat-error>Le prénom est obligatoire</mat-error>
     }
 
   </mat-form-field>
+
   <mat-radio-group formControlName="gender" aria-label="Selectionner un genre">
     <mat-radio-button value="H">Homme</mat-radio-button>
     <mat-radio-button value="F">Femme</mat-radio-button>
@@ -81,19 +83,115 @@
   </mat-radio-group>
 
   <mat-form-field>
-    <mat-label>Role</mat-label>
-    <mat-select
-      formControlName="role"
-      [compareWith]="comparateurEtat"
-    >
-      @for (role of listRole; track role.id) {
-        <mat-option [value]="role">{{ role.name }}</mat-option>
-      }
-    </mat-select>
+    <mat-label>Date de naissance</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      formControlName="birthdate"
+      placeholder="Votre date de naissance"
+    />
+    <mat-hint>MM/JJ/AAAA</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    @if (formulaireEditStudent.get("birthdate")?.hasError('required')) {
+      <mat-error>La date de naissance est obligatoire</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Lieu de naissance</mat-label>
+    <input
+      matInput
+      formControlName="birthplace"
+      placeholder="Votre lieu de naissance"
+    />
+
+    @if (formulaireEditStudent.get("birthplace")?.hasError('required')) {
+      <mat-error>Le lieu de naissance est obligatoire</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Nationalité</mat-label>
+    <input
+      matInput
+      formControlName="nationality"
+      placeholder="Votre nationalité"
+    />
+
+    @if (formulaireEditStudent.get("birthplace")?.hasError('required')) {
+      <mat-error>Le lieu de naissance est obligatoire</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Adresse</mat-label>
+    <input
+      matInput
+      formControlName="address"
+      placeholder="Votre adresse"
+    />
+
+    @if (formulaireEditStudent.get("address")?.hasError('required')) {
+      <mat-error>L'adresse est obligatoire</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Code Postal</mat-label>
+    <input
+      matInput
+      formControlName="postalCode"
+      placeholder="Votre code postal"
+    />
+
+    @if (formulaireEditStudent.get("postalCode")?.hasError('required')) {
+      <mat-error>Le code postal est obligatoire</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Ville</mat-label>
+    <input
+      matInput
+      formControlName="city"
+      placeholder="Votre ville"
+    />
+
+    @if (formulaireEditStudent.get("city")?.hasError('required')) {
+      <mat-error>La ville est obligatoire</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Numéro de téléphone</mat-label>
+    <input
+      matInput
+      formControlName="phoneNumber"
+      placeholder="Votre numéro de téléphone"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Numéro de sécurité sociale</mat-label>
+    <input
+      matInput
+      formControlName="socialSecurityNumber"
+      placeholder="Votre numéro de sécurité sociale"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Numéro de France Travail</mat-label>
+    <input
+      matInput
+      formControlName="franceTravailNumber"
+      placeholder="Votre numéro France Travail"
+    />
   </mat-form-field>
 
   <button type="submit" mat-raised-button color="primary">
-    {{ idUser == null ? "Ajouter l'utilisateur" : "Modifier l'utilisateur" }}
+    {{ idStudent == null ? "Ajouter l'étudiant" : "Modifier l'étudiant" }}
   </button>
 
 </form>

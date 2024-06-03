@@ -49,7 +49,7 @@ export class InscriptionComponent {
     password: ['', [Validators.required, Validators.pattern(this.passwordRegex)]],
     lastname: ['', [Validators.required]],
     firstname: ['', [Validators.required]],
-    gender: ['', []]
+    gender: ['', []],
   });
 
   afficheMotDePasse = false;
