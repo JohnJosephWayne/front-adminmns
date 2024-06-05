@@ -61,7 +61,7 @@ export class ConnexionComponent {
         .subscribe({
           next: (resultat) => {
             localStorage.setItem('jwt', resultat.jwt);
-            this.authentication.authentificationAvecJwtLocalStorage()
+            this.authentication.getConnectedUser().then();
             this.router.navigateByUrl('/accueil');
           },
           error: (reponse) => {

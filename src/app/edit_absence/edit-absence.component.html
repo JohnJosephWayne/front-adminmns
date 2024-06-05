@@ -1,0 +1,97 @@
+<h2>Ajouter/Modifier une absence</h2>
+
+<form class="formulaire" [formGroup]="formulaireEditAbsence" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Email de l'étudiant</mat-label>
+    <input
+      matInput
+      formControlName="email"
+      placeholder="Ex. john.doe@domain.com"
+    />
+
+    @if (formulaireEditAbsence.get("email")?.hasError('required')) {
+      <mat-error>L'email est obligatoire</mat-error>
+    }
+    @if (formulaireEditAbsence.get("email")?.hasError('email')) {
+      <mat-error>L'email est mal formé</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Nom de famille de l'étudiant</mat-label>
+    <input
+      matInput
+      formControlName="lastname"
+      placeholder="Votre nom de famille"
+    />
+    @if (formulaireEditAbsence.get("lastname")?.hasError('required')) {
+      <mat-error>Le nom de famille est obligatoire</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Prénom de l'étudiant</mat-label>
+    <input
+      matInput
+      formControlName="firstname"
+      placeholder="Votre prénom"
+    />
+
+    @if (formulaireEditAbsence.get("firstname")?.hasError('required')) {
+      <mat-error>Le prénom est obligatoire</mat-error>
+    }
+
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Date de création de l'absence</mat-label>
+    <input matInput
+           formControlName="creationDate"
+           [matDatepicker]="picker">
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+
+
+
+    @if (formulaireEditAbsence.get("creationDate")?.hasError('required')) {
+      <mat-error>La date de création de l'absence est obligatoire</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Début de l'absence</mat-label>
+    <input matInput
+           formControlName="start"
+           [matDatepicker]="picker2">
+    <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+
+
+    @if (formulaireEditAbsence.get("start")?.hasError('required')) {
+      <mat-error>La début de l'absence est obligatoire</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Fin de l'absence</mat-label>
+    <input matInput
+           formControlName="end"
+           [matDatepicker]="picker3">
+    <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+    <mat-datepicker #picker3></mat-datepicker>
+
+
+    @if (formulaireEditAbsence.get("end")?.hasError('required')) {
+      <mat-error>La fin de l'absence est obligatoire</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-radio-group formControlName="status" aria-label="Selectionner un statut">
+    <mat-radio-button value="treated">Validée</mat-radio-button>
+    <mat-radio-button value="notTreated">Non validée</mat-radio-button>
+  </mat-radio-group>
+
+  <button type="submit" mat-raised-button>
+    {{ idAbsence == null ? "Ajouter l'absence" : "Modifier l'absence" }}
+  </button>
+
+</form>

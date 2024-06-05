@@ -1,10 +1,12 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {HeaderComponent} from "./header/header.component";
 import {ConnexionComponent} from "./connexion/connexion.component";
 import {InscriptionComponent} from "./inscription/inscription.component";
 import {AuthentificationService} from "./authentification.service";
 import {AccueilComponent} from "./accueil/accueil.component";
+import {skip} from "rxjs";
+import {FooterComponent} from "./footer/footer.component";
 
 @Component({
   selector: 'app-root',
@@ -15,18 +17,21 @@ import {AccueilComponent} from "./accueil/accueil.component";
     HeaderComponent,
     ConnexionComponent,
     InscriptionComponent,
-    AccueilComponent
+    AccueilComponent,
+    FooterComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'dashboard admin_Mns';
 
   authentication: AuthentificationService = inject(AuthentificationService)
 
   ngOnInit(){
-    this.authentication.authentificationAvecJwtLocalStorage()
+
+
+    this.authentication.getConnectedUser().then();
 
   }
 }
