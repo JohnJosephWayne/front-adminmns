@@ -1,12 +1,12 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
-import { AuthentificationService } from './authentification.service';
+import {inject} from '@angular/core';
+import {CanActivateFn, Router} from '@angular/router';
+import {AuthentificationService} from './authentification.service';
 
 export const userGuard: CanActivateFn = (route, state) => {
   const authentification = inject(AuthentificationService);
   const router = inject(Router);
 
-  return authentification.user != null
+  return authentification._connectedUser != null
     ? true
     : router.parseUrl('/connexion');
 };
