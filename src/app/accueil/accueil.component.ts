@@ -40,6 +40,7 @@ export class AccueilComponent implements OnInit {
 
     this.authentification._connectedUser.subscribe(userInfo => {
       this.userInfo = userInfo;
+      console.log(userInfo);
 
       if(this.userInfo) {
 
