@@ -1,1 +1,87 @@
+<h2>Absences de {{ student.lastname }}</h2>
 
+    <form class="formulaire" [formGroup]="formAbsence" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <mat-label class="label-color">Cause</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="cause" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Date de début</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerStart"
+          formControlName="start"
+        />
+        <mat-hint>MM/JJ/AAAA</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="pickerStart"></mat-datepicker-toggle>
+        <mat-datepicker #pickerStart></mat-datepicker>
+        @if (formAbsence.get("start")?.hasError('required')) {
+          <mat-error>La date est obligatoire</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Date de fin</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerEnd"
+          formControlName="end"
+        />
+        <mat-hint>MM/JJ/AAAA</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+        <mat-datepicker #pickerEnd></mat-datepicker>
+        @if (formAbsence.get("end")?.hasError('required')) {
+          <mat-error>La date est obligatoire</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Commentaires</mat-label>
+        <textarea matInput placeholder="Ecrire un commentaire au besoin"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+          <div>
+            <mat-toolbar>
+              <input matInput [value]="fileName" />
+              <button
+                mat-flat-button
+                color="primary"
+                [disabled]="!currentFile"
+                (click)="upload()"
+              >
+                Upload
+              </button>
+            </mat-toolbar>
+            <input
+              type="file"
+              id="fileInput"
+              (change)="selectFile($event)"
+              name="fileInput"
+            />
+          </div>
+        </mat-form-field>
+
+        @if (message) {
+          <div class="message">
+            {{ message }}
+          </div>
+        }
+
+        <mat-card class="example-card">
+          <mat-card-header>
+            <mat-card-title>List of Files</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list role="list">
+              @for (file of fileInfos | async; track file.name) {
+                <mat-list-item role="listitem">
+                  <a href="{{ file.url }}">{{ file.name }}</a>
+                </mat-list-item>
+              }
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+
+      <button (click)="onsubmit"></button>
+    </form>

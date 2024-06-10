@@ -1,6 +1,6 @@
 <h2>Ajouter/Modifier un étudiant </h2>
 
-<form class="formLog" [formGroup]="formulaireEditStudent" (ngSubmit)="onSubmit()">
+<form class="formulaire" [formGroup]="formulaireEditStudent" (ngSubmit)="onSubmit()">
 
   <mat-form-field>
     <mat-label>Email</mat-label>
@@ -18,15 +18,15 @@
     }
   </mat-form-field>
 
-  @if (idStudent == null){
-
   <mat-form-field>
-    <mat-label class="label-color">Mot de passe</mat-label>
+    <mat-label>Mot de passe</mat-label>
+
     <input
       matInput
       formControlName="password"
       [type]="afficheMotDePasse ? 'text' : 'password'"
     />
+
     <button
       type="button"
       mat-icon-button
@@ -41,17 +41,14 @@
       </mat-icon>
     </button>
 
-
-    @if (formulaireEditStudent.get('password')?.hasError('required')){
+    @if (formulaireEditStudent.get('password')?.hasError('required')) {
       <mat-error>Le mot de passe est obligatoire</mat-error>
     }
-    @if (formulaireEditStudent.get('password')?.hasError('pattern')){
+    @if (formulaireEditStudent.get('password')?.hasError('pattern')) {
       <mat-error>8 caractères, minuscule, majuscule, caractère spécial</mat-error>
     }
 
   </mat-form-field>
-
-  }
 
   <mat-form-field>
     <mat-label>Nom</mat-label>
@@ -80,7 +77,7 @@
   </mat-form-field>
 
   <mat-radio-group formControlName="gender" aria-label="Selectionner un genre">
-    <mat-radio-button value="M">Homme</mat-radio-button>
+    <mat-radio-button value="H">Homme</mat-radio-button>
     <mat-radio-button value="F">Femme</mat-radio-button>
     <mat-radio-button value="A">Autre</mat-radio-button>
   </mat-radio-group>

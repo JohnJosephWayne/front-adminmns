@@ -1,5 +1,5 @@
 
-<a class="add-button button" routerLink="/add-student" mat-raised-button color="primary">Ajouter un étudiant</a>
+<a routerLink="/add-student" mat-raised-button color="primary">Ajouter un étudiant</a>
 
 <br>
 <br>
@@ -36,8 +36,8 @@
   <ng-container matColumnDef="boutons">
     <th mat-header-cell *matHeaderCellDef> MODIFIER/SUPPRIMER </th>
     <td mat-cell *matCellDef="let student">
-      <button class="button" mat-raised-button [routerLink]="['/edit-student', student.id]"  color="primary">Modifier</button>
-      <button class="button-alt" mat-raised-button (click)="onDeleteUser(student.id)"  color="accent">Supprimer</button>
+      <button mat-raised-button [routerLink]="['/edit-student', student.id]"  color="primary">Modifier</button>
+      <button mat-raised-button (click)="onDeleteUser(student.id)"  color="accent">Supprimer</button>
     </td>
   </ng-container>
 
