@@ -8,6 +8,8 @@ import {ListStudentComponent} from "./list-student/list-student.component";
 import {ValidationAbsenceComponent} from "./validation_absence/validation-absence.component";
 import {adminGuard} from "./admin.guard";
 import {EditAbsenceComponent} from "./edit_absence/edit-absence.component";
+import {EditLatenessComponent} from "./edit-lateness/edit-lateness.component";
+import {ValidationLatenessComponent} from "./validation_lateness/validation-lateness.component";
 
 export const routes: Routes = [
   {path: "accueil", component: AccueilComponent},
@@ -19,6 +21,9 @@ export const routes: Routes = [
   {path: "add-absence", component: EditAbsenceComponent, canActivate: [adminGuard]},
   {path: "edit-absence/:id", component: EditAbsenceComponent, canActivate: [adminGuard]},
   {path: "list-absence", component: ValidationAbsenceComponent},
+  {path: "add-lateness", component: EditLatenessComponent, canActivate: [adminGuard]},
+  {path: "edit-lateness/:id", component: EditLatenessComponent, canActivate: [adminGuard]},
+  {path: "list-lateness", component: ValidationLatenessComponent},
   {path: "", redirectTo: "connexion", pathMatch: 'full'},
   {path: "**", component: PageNonTrouveeComponent}
 ];

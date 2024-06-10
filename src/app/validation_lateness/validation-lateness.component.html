@@ -1,0 +1,53 @@
+<a routerLink="/add-lateness" mat-raised-button>Ajouter un retard</a>
+
+<br><br>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let lateness"> {{lateness.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="lastname">
+    <th mat-header-cell *matHeaderCellDef> NOM </th>
+    <td mat-cell *matCellDef="let lateness"> {{lateness.studentLateness.lastname}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="firstname">
+    <th mat-header-cell *matHeaderCellDef> PRÉNOM </th>
+    <td mat-cell *matCellDef="let lateness"> {{lateness.studentLateness.firstname}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef> EMAIL </th>
+    <td mat-cell *matCellDef="let lateness"> {{lateness.studentLateness.email}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="creationDate">
+    <th mat-header-cell *matHeaderCellDef> DATE DE CREATION </th>
+    <td mat-cell *matCellDef="let lateness"> {{lateness.creationDate | date}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef> DATE </th>
+    <td mat-cell *matCellDef="let lateness"> {{lateness.date | date}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="statut">
+    <th mat-header-cell *matHeaderCellDef> STATUT </th>
+    <td mat-cell *matCellDef="let lateness"> {{lateness.validity ? 'Validé' : 'Non validé'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="boutons">
+    <th mat-header-cell *matHeaderCellDef> MODIFIER/SUPPRIMER </th>
+    <td mat-cell *matCellDef="let lateness">
+      <button mat-raised-button [routerLink]="['/edit-lateness', lateness.id]" color="primary">Modifier</button>
+      <button mat-raised-button (click)="onDeleteLateness(lateness.id)" color="accent">Supprimer</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>

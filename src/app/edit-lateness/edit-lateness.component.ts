@@ -58,7 +58,6 @@ export class EditLatenessComponent implements OnInit {
       validity: ["", [Validators.required]]
     }
   )
-  private latenessServiceService: any;
 
   ngOnInit() {
 
@@ -77,7 +76,7 @@ export class EditLatenessComponent implements OnInit {
       }
     })
 
-    this.latenessServiceService.getListLateness().subscribe(latenesss => {
+    this.latenessService.getListLateness().subscribe(latenesss => {
       console.log('Latenesss:', latenesss);  // Vérification des données récupérées
       this.listLatenesss = latenesss;
       console.log(this.listLatenesss);  // Vérification des données après mise à jour du tableau
