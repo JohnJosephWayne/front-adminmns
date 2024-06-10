@@ -14,6 +14,7 @@ import {Router, RouterLink} from '@angular/router';
 import {MatIcon} from "@angular/material/icon";
 import {MatButtonToggle} from "@angular/material/button-toggle";
 import {AuthentificationService} from "../authentification.service";
+import {User} from "../model/user";
 
 @Component({
   selector: 'app-connexion',
@@ -38,6 +39,7 @@ export class ConnexionComponent {
   router: Router = inject(Router);
   authentication: AuthentificationService = inject(AuthentificationService)
 
+
   formulaireConnexion: FormGroup = this.formBuilder.group({
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required]],
@@ -45,6 +47,8 @@ export class ConnexionComponent {
 
   erreurConnexion: boolean = false;
   afficheMotDePasse = false;
+
+  user?: User;
 
   onConnexion() {
 
@@ -57,9 +61,8 @@ export class ConnexionComponent {
         .subscribe({
           next: (resultat) => {
             localStorage.setItem('jwt', resultat.jwt);
-            this.authentication.authentificationAvecJwtLocalStorage()
+            this.authentication.getConnectedUser().then();
             this.router.navigateByUrl('/accueil');
-            console.log(resultat);
           },
           error: (reponse) => {
             this.erreurConnexion = true;

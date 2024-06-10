@@ -1,23 +1,24 @@
 import {Routes} from '@angular/router';
-// import {AccueilAdministratifComponent} from "./accueil-administratif/accueil-administratif.component";
 import {ConnexionComponent} from "./connexion/connexion.component";
+import {AccueilComponent} from "./accueil/accueil.component";
 import {PageNonTrouveeComponent} from "./page_non_trouvee/pagenontrouvee.component";
 import {InscriptionComponent} from "./inscription/inscription.component";
 import {EditStudentComponent} from "./edit_student/edit_student.component";
 import {ListStudentComponent} from "./list-student/list-student.component";
-import {EditEmployeeComponent} from "./edit-employee/edit-employee.component";
-import {ListEmployeeComponent} from "./list-employee/list-employee.component";
+import {ValidationAbsenceComponent} from "./validation_absence/validation-absence.component";
+import {adminGuard} from "./admin.guard";
+import {EditAbsenceComponent} from "./edit_absence/edit-absence.component";
 
 export const routes: Routes = [
-  // {path: "accueil", component: AccueilAdministratifComponent},
+  {path: "accueil", component: AccueilComponent},
   {path: "connexion", component: ConnexionComponent},
   {path: "inscription", component: InscriptionComponent},
-  {path: "add-student", component: EditStudentComponent},
-  {path: "edit-student/:id", component: EditStudentComponent},
+  {path: "add-student", component: EditStudentComponent, canActivate: [adminGuard]},
+  {path: "edit-student/:id", component: EditStudentComponent, canActivate: [adminGuard]},
   {path: "list-student", component: ListStudentComponent},
-  {path: "add-employee", component: EditEmployeeComponent},
-  {path: "edit-employee/:id", component: EditEmployeeComponent},
-  {path: "list-employee", component: ListEmployeeComponent},
-  {path: "", redirectTo: "accueil", pathMatch: 'full'},
+  {path: "add-absence", component: EditAbsenceComponent, canActivate: [adminGuard]},
+  {path: "edit-absence/:id", component: EditAbsenceComponent, canActivate: [adminGuard]},
+  {path: "list-absence", component: ValidationAbsenceComponent},
+  {path: "", redirectTo: "connexion", pathMatch: 'full'},
   {path: "**", component: PageNonTrouveeComponent}
 ];

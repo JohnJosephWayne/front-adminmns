@@ -12,6 +12,4 @@ export class ProfilComponent {
 
   authentification = inject(AuthentificationService)
 
-  
-
 }

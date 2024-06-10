@@ -1,66 +1,78 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <div class="nav-justified me-auto, mb-2, mb-lg-0, me-2">
-
-        @if (authentification.user) {
-          <div class="button-row">
-            <div class="nav-item">
-              <button mat-flat-button class="button nav-link" routerLink="#">
-                Consulter les absences
-              </button>
-            </div>
-            <div class="nav-item">
-              <button mat-flat-button class="button nav-link" routerLink="#">
-                Consulter les retards
-              </button>
-            </div>
-            <div class="nav-item">
-              <button mat-flat-button class="button nav-link" routerLink="#">
-                Consulter les dossiers
-              </button>
-            </div>
-            <!--            <div class="dropdown-menu">-->
-            <!--              <a class="dropdown-item" href="#">Utilisateurs</a>-->
-            <!--              <a class="dropdown-item" href="#">Utilisateurs</a>-->
-            <!--              <a class="dropdown-item" href="#">Utilisateurs</a>-->
-            <!--              <a class="dropdown-item" href="#">Utilisateurs</a>-->
-            <!--              <a class="dropdown-item" href="#">Utilisateurs</a>-->
-            <!--            </div>-->
-            <!--          </div>-->
-
-            <div class="button nav-item">
-              <button mat-flat-button class="button nav-link" (click)="onDeconnexion()">
-                Déconnexion
-              </button>
-            </div>
-          </div>
-        } @else {
-          <div class="button-row">
-            <div class="nav-item">
-              <button
-                mat-flat-button
-                class="button nav-link"
-                routerLinkActive="actuelle"
-                routerLink="/connexion"
-              >Connexion
-              </button>
-            </div>
-            <div class="nav-item">
-              <button
-                mat-flat-button
-                class="button nav-link"
-                routerLink="/inscription">
-                Inscription
-              </button>
-            </div>
-          </div>
-        }
+<h1 style="color: #C5E7E2;margin: 20px auto 40px">AdminMNS</h1>
+<nav>
+@if (userInfo && (userInfo.role.name == "ADMIN" || userInfo.role.name == "VALIDATOR")) {
+    <div class="button-row">
+      <div class="nav-item">
+        <button mat-flat-button class="button nav-link" routerLink="/accueil">
+          Accueil
+        </button>
+      </div>
+      <div class="nav-item">
+        <button mat-flat-button class="button nav-link" routerLink="/list-student">
+          Consulter les utilisateurs
+        </button>
+      </div>
+      <div class="nav-item">
+        <button mat-flat-button class="button nav-link" routerLink="/list-absence">
+          Consulter les absences
+        </button>
+      </div>
+      <div class="nav-item">
+        <button mat-flat-button class="button nav-link" routerLink="#">
+          Consulter les retards
+        </button>
+      </div>
+      <div class="nav-item">
+        <button mat-flat-button class="button nav-link" routerLink="#">
+          Consulter les dossiers
+        </button>
+      </div>
+      <div class="button nav-item">
+        <button mat-flat-button class="button nav-link" (click)="onDeconnexion()">
+          Déconnexion
+        </button>
       </div>
     </div>
+    } @else if (userInfo && userInfo.role.name == "STUDENT") {
+  <div class="button-row">
+    <div class="nav-item">
+      <button mat-flat-button class="button nav-link" routerLink="/accueil">
+        Accueil
+      </button>
+    </div>
+    <div class="nav-item">
+      <button mat-flat-button class="button nav-link" routerLink="#">
+        Déposer une absence
+      </button>
+    </div>
+    <div class="nav-item">
+      <button mat-flat-button class="button nav-link" routerLink="#">
+        Déposer un retard
+      </button>
+    </div>
+    <div class="nav-item">
+      <button mat-flat-button class="button nav-link" routerLink="#">
+        Déposer un dossier
+      </button>
+    </div>
+    <div class="button nav-item">
+      <button mat-flat-button class="button nav-link" (click)="onDeconnexion()">
+        Déconnexion
+      </button>
+    </div>
   </div>
+
+} @else {
+  <div class="button-row">
+    <div class="nav-item">
+      <button
+        mat-flat-button
+        class="button nav-link"
+        routerLinkActive="actuelle"
+        routerLink="/connexion"
+      >Connexion
+      </button>
+    </div>
+  </div>
+  }
 </nav>
-
-
-
-

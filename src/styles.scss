@@ -1,20 +1,32 @@
 html,
-body{
-  height: 100%;
+body {
+  margin: 0;
+  padding: 0;
+  height: 101vh;
   box-sizing: border-box;
   font-family: Sarabun, "Nunito sans", sans-serif;
-  background: linear-gradient(#080B21, #23061E);
   color: #C5E7E2;
-  h1, h2, h3, h4, h5, h6{
+
+  h1, h2, h3, h4, h5, h6 {
     text-align: center;
     font-family: Spinnaker, sans-serif;
   }
+
+  ul {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
 }
-ul{
-  list-style: none;
-}
-a{
-  text-decoration: none;
+
+
+html {
+  @media screen and (min-height: 100vh) {
+    background: linear-gradient(to bottom, #080B21, #23061E) no-repeat;
+    min-height: fit-content;
+  }
 }
 
 .formulaire {
@@ -24,15 +36,15 @@ a{
   max-width: 400px;
 }
 
-a,button {
+a, button {
   &.button.mdc-button {
-    width:200px;
+    width: 200px;
     border-radius: 8px;
     padding: 5px;
     background-color: #ffebeb;
     color: #23061E;
 
-    &:hover{
+    &:hover {
       opacity: 0.8;
     }
   }
