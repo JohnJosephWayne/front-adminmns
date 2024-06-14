@@ -8,11 +8,15 @@ import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../model/user";
 import {MatIcon} from "@angular/material/icon";
-import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
 import {MatList, MatListItem} from "@angular/material/list";
 import {FileUploadService} from "../service/file-upload.service";
+import {MatToolbar} from "@angular/material/toolbar";
+import {AsyncPipe} from "@angular/common";
+import {MatButton} from "@angular/material/button";
+import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 
 @Component({
   selector: 'app-depot-absence',
@@ -35,7 +39,10 @@ import {FileUploadService} from "../service/file-upload.service";
     MatCardHeader,
     MatCardContent,
     MatList,
-    MatListItem
+    MatListItem,
+    MatToolbar,
+    AsyncPipe,
+    MatButton
   ],
   templateUrl: './depot-absence.component.html',
   styleUrl: './depot-absence.component.scss'
@@ -52,16 +59,16 @@ export class DepotAbsenceComponent {
     cause: ['', [Validators.required]],
     pickerStart: ['', [Validators.required]],
     pickerEnd: ['', [Validators.required]],
-
+    fileInput: ['', [Validators.required]]
   });
 
-  user?: User;
+  student?: User;
 
-@Component({
-  selector: 'app-file-upload',
-  templateUrl: './file-upload.component.html',
-  styleUrls: ['./file-upload.component.css']
-})
+  @Component({
+    selector: 'app-file-upload',
+    templateUrl: './file-upload.component.html',
+    styleUrls: ['./file-upload.component.css']
+  })
   currentFile?: File;
   progress = 0;
   message = '';
@@ -69,9 +76,13 @@ export class DepotAbsenceComponent {
   fileName = 'Select File';
   fileInfos?: Observable<any>;
 
-  constructor(private uploadService: FileUploadService) { }
+  constructor(private uploadService: FileUploadService) {
+  }
 
   ngOnInit(): void {
+
+
+
     this.fileInfos = this.uploadService.getFiles();
   }
 
@@ -117,20 +128,10 @@ export class DepotAbsenceComponent {
   }
 
   onSubmit() {
-    this.route.params.subscribe(parameter => {
-      this.idStudent = parameter['id'];
-      if (this.idStudent != null && !isNaN(this.idStudent)) {
-      }
-      if (this.formAbsence.valid) {
 
-        if (this.idStudent) {
-          this.http.put("http://localhost:8080/absence/" + this.idStudent, this.formAbsence.value)
-            .subscribe(result => this.router.navigateByUrl("/accueil"));
-        } else {
-          this.http.post("http://localhost:8080/absence", this.formAbsence.value)
-            .subscribe(result => this.router.navigateByUrl("/depot/absence"));
-        }
-      }
-    });
+
+
+
+
   }
 }

@@ -9,6 +9,7 @@ import {RouterLink} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 
 @Component({
   selector: 'app-list-student',
@@ -38,7 +39,8 @@ export class ListStudentComponent {
       .subscribe(listStudent => {
         this.listStudent = listStudent;
         this.dataSource = new MatTableDataSource(this.listStudent);
-
+console.log(listStudent)
+        console.log(this.listStudent)
       });
   }
 

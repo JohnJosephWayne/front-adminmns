@@ -34,17 +34,17 @@
       <mat-grid-tile><h4>Absences à traiter</h4></mat-grid-tile>
       <mat-grid-tile><h4>Dossiers d'inscription à traiter</h4></mat-grid-tile>
 
-      <mat-grid-tile class="tile">{{ this.invalidLateness.length}}</mat-grid-tile>
-      <mat-grid-tile class="tile">{{ this.invalidAbsences.length }}</mat-grid-tile>
-      <mat-grid-tile class="tile">{{ this.invalidFolders.length }}</mat-grid-tile>
+      <mat-grid-tile class="tile">2</mat-grid-tile>
+      <mat-grid-tile class="tile">{{ this.filteredAbsenceById.length }}</mat-grid-tile>
+      <mat-grid-tile class="tile"> 2 </mat-grid-tile>
 
       <mat-grid-tile><h4>Retards totaux</h4></mat-grid-tile>
       <mat-grid-tile><h4>Absences totaux</h4></mat-grid-tile>
       <mat-grid-tile><h4>Dossiers d'inscription totaux</h4></mat-grid-tile>
 
-      <mat-grid-tile>{{ nbToTreatLateness }}</mat-grid-tile>
-      <mat-grid-tile>{{ nbToTreatAbsences }}</mat-grid-tile>
-      <mat-grid-tile>{{ nbToTreatFolder }}</mat-grid-tile>
+      <mat-grid-tile>2</mat-grid-tile>
+      <mat-grid-tile>{{ this.listbyId.length }} </mat-grid-tile>
+      <mat-grid-tile>2</mat-grid-tile>
 
     </mat-grid-list>
 

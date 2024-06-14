@@ -1,4 +1,4 @@
-<h2>Absences de {{ student.lastname }}</h2>
+<h2>Formulaire de dépôt d'absence</h2>
 
     <form class="formulaire" [formGroup]="formAbsence" (ngSubmit)="onSubmit()">
       <mat-form-field>
@@ -13,12 +13,12 @@
         <input
           matInput
           [matDatepicker]="pickerStart"
-          formControlName="start"
+          formControlName="pickerStart"
         />
         <mat-hint>MM/JJ/AAAA</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="pickerStart"></mat-datepicker-toggle>
         <mat-datepicker #pickerStart></mat-datepicker>
-        @if (formAbsence.get("start")?.hasError('required')) {
+        @if (formAbsence.get("pickerStart")?.hasError('required')) {
           <mat-error>La date est obligatoire</mat-error>
         }
       </mat-form-field>
@@ -27,12 +27,12 @@
         <input
           matInput
           [matDatepicker]="pickerEnd"
-          formControlName="end"
+          formControlName="pickerEnd"
         />
         <mat-hint>MM/JJ/AAAA</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
         <mat-datepicker #pickerEnd></mat-datepicker>
-        @if (formAbsence.get("end")?.hasError('required')) {
+        @if (formAbsence.get("pickerEnd")?.hasError('required')) {
           <mat-error>La date est obligatoire</mat-error>
         }
       </mat-form-field>
@@ -44,18 +44,11 @@
           <div>
             <mat-toolbar>
               <input matInput [value]="fileName" />
-              <button
-                mat-flat-button
-                color="primary"
-                [disabled]="!currentFile"
-                (click)="upload()"
-              >
-                Upload
-              </button>
             </mat-toolbar>
             <input
               type="file"
               id="fileInput"
+
               (change)="selectFile($event)"
               name="fileInput"
             />
@@ -68,20 +61,6 @@
           </div>
         }
 
-        <mat-card class="example-card">
-          <mat-card-header>
-            <mat-card-title>List of Files</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <mat-list role="list">
-              @for (file of fileInfos | async; track file.name) {
-                <mat-list-item role="listitem">
-                  <a href="{{ file.url }}">{{ file.name }}</a>
-                </mat-list-item>
-              }
-            </mat-list>
-          </mat-card-content>
-        </mat-card>
 
-      <button (click)="onsubmit"></button>
+      <button mat-flat-button class="button">Soumettre</button>
     </form>

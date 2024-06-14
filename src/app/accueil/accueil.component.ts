@@ -1,11 +1,13 @@
 import {Component, inject, OnInit} from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { AuthentificationService } from "../authentification.service";
+import {HttpClient} from "@angular/common/http";
+import {AuthentificationService} from "../authentification.service";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {MatDivider} from "@angular/material/divider";
 import {LatenessServiceService} from "../service/lateness-service.service";
 import {AbsenceServiceService} from "../service/absence-service.service";
 import {StudentFolderServiceService} from "../service/student-folder-service.service";
+import {User} from "../model/user";
+import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 
 @Component({
   selector: 'app-accueil',
@@ -22,10 +24,10 @@ export class AccueilComponent implements OnInit {
   http: HttpClient = inject(HttpClient);
   latenessService: LatenessServiceService = inject(LatenessServiceService);
   absenceService: AbsenceServiceService = inject(AbsenceServiceService);
-  studentFolderService : StudentFolderServiceService = inject(StudentFolderServiceService);
+  studentFolderService: StudentFolderServiceService = inject(StudentFolderServiceService);
   authentification: AuthentificationService = inject(AuthentificationService)
 
-  userInfo : any
+  userInfo: any
   invalidFolders: any[] = [];
   nbToTreatFolder: number = 0;
   invalidAbsences: any[] = [];
@@ -35,6 +37,8 @@ export class AccueilComponent implements OnInit {
   absenceList: any[] = [];
   folderList: any[] = [];
   latenessList: any[] = [];
+  filteredAbsenceById: any[] = []
+  listbyId: any[] = []
 
   ngOnInit(): void {
 
@@ -42,7 +46,7 @@ export class AccueilComponent implements OnInit {
       this.userInfo = userInfo;
       console.log(userInfo);
 
-      if(this.userInfo) {
+      if (this.userInfo) {
 
         this.latenessService._invalidLateness.subscribe(
           invalidLateness => this.invalidLateness = invalidLateness)
@@ -70,5 +74,18 @@ export class AccueilComponent implements OnInit {
       }
     })
 
+    this.authentification._connectedUser.subscribe(userInfo => {
+      this.userInfo = userInfo;
+
+        this.absenceService._listFilteredbyId.subscribe((
+          filteredAbsencesById => this.filteredAbsenceById = filteredAbsencesById));
+
+        this.absenceService.getListFilteredAbsencesbyId();
+
+
+      this.absenceService._listbyId.subscribe((
+        allAbsencesById => this.listbyId = allAbsencesById));
+      this.absenceService.getListAbsence()
+    })
   }
 }
