@@ -10,6 +10,7 @@ import {adminGuard} from "./admin.guard";
 import {EditAbsenceComponent} from "./edit_absence/edit-absence.component";
 import {EditLatenessComponent} from "./edit-lateness/edit-lateness.component";
 import {ValidationLatenessComponent} from "./validation_lateness/validation-lateness.component";
+import {ListFolderComponent} from "./list-folder/list-folder.component";
 
 export const routes: Routes = [
   {path: "accueil", component: AccueilComponent},
@@ -24,6 +25,7 @@ export const routes: Routes = [
   {path: "add-lateness", component: EditLatenessComponent, canActivate: [adminGuard]},
   {path: "edit-lateness/:id", component: EditLatenessComponent, canActivate: [adminGuard]},
   {path: "list-lateness", component: ValidationLatenessComponent},
+  {path: "list-folder", component:ListFolderComponent},
   {path: "", redirectTo: "connexion", pathMatch: 'full'},
   {path: "**", component: PageNonTrouveeComponent}
 ];
