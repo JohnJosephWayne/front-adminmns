@@ -1,52 +1,52 @@
-html,
-body {
+/* styles.css */
+html, body {
   margin: 0;
   padding: 0;
-  height: 150vh;
-  box-sizing: border-box;
+  height: 100%;
   font-family: Sarabun, "Nunito sans", sans-serif;
+  background: linear-gradient(to bottom, #080B21, #23061E) no-repeat;
+  background-size: cover;
   color: #C5E7E2;
+  box-sizing: border-box;
 
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2, h3, h4, h5{
     text-align: center;
-    font-family: Spinnaker, sans-serif;
-  }
-
-  ul {
-    list-style: none;
-  }
-
-  a {
-    text-decoration: none;
   }
 }
 
-
-html {
-  @media screen and (max-height: 100vh) {
-    background: linear-gradient(to bottom, #080B21, #23061E) no-repeat;
-    height: fit-content;
-  }
+.wrapper {
+  display: flex;
+  flex: min-content;
+  flex-direction: column;
+  min-height: 100%;
+  justify-content: center;
+  align-content: center;
 }
 
 .formulaire {
   display: flex;
-  margin: 10px auto;
   flex-direction: column;
   max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  margin: 40px auto 20px;
+  background: rgba(255, 255, 255, 0.1); /* Adds a semi-transparent background */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-a, button {
-  &.button.mdc-button {
-    width: 200px;
-    border-radius: 8px;
-    padding: 5px;
-    background-color: #ffebeb;
-    color: #23061E;
+a.button.mdc-button, button.button.mdc-button {
+  width: 200px;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #ffebeb;
+  color: #23061E;
+  text-align: center;
+  margin: 10px auto;
 
-    &:hover {
-      opacity: 0.8;
-    }
+  a.button.mdc-button:hover, button.button.mdc-button:hover {
+    opacity: 0.8;
   }
-
 }
+
+

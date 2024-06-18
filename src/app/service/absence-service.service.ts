@@ -1,70 +1,68 @@
 import {inject, Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject} from "rxjs";
-import {Absence} from "../model/absence";
-import {User} from "../model/user";
-
-
+import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject, Observable } from "rxjs";
+import { Absence } from "../model/absence";
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AbsenceServiceService {
+export class AbsenceService {
 
-  http: HttpClient = inject(HttpClient);
+  http = inject(HttpClient);
 
-  readonly _invalidAbsences: BehaviorSubject<Absence[]> = new BehaviorSubject<Absence[]>([])
-  readonly _listAbsences: BehaviorSubject<Absence[]> = new BehaviorSubject<Absence[]>([]);
-  readonly _listFilteredbyId: BehaviorSubject<Absence[]> = new BehaviorSubject<Absence[]>([]);
-  readonly _listbyId: BehaviorSubject<Absence[]> = new BehaviorSubject<Absence[]>([]);
-  readonly _userInfo: User | undefined;
+  private readonly baseUrl = "http://localhost:8080/absence";
+  private readonly userUrl = "http://localhost:8080/users/absences";
+
+  _invalidAbsences = new BehaviorSubject<Absence[]>([]);
+  _listAbsences = new BehaviorSubject<Absence[]>([]);
+  _listFilteredbyId = new BehaviorSubject<Absence[]>([]);
+  _listbyId = new BehaviorSubject<Absence[]>([]);
 
 
-  refresh() {
-    this.http
-      .get<Absence[]>("http://localhost:8080/absence/list")
-      .subscribe((invalidAbsence: Absence[]) => {
-
-        let filteredAbsence = invalidAbsence.filter(absence => absence.validity === null);
-        this._invalidAbsences.next(filteredAbsence);
-      });
+  refresh(): void {
+    this.http.get<Absence[]>(`${this.baseUrl}/list`)
+      .pipe(
+        tap(invalidAbsences => {
+          const filteredAbsences = invalidAbsences.filter(absence => absence.validity === null);
+          this._invalidAbsences.next(filteredAbsences);
+        })
+      ).subscribe();
   }
 
-  getListAbsence() {
-    this.http
-      .get<Absence[]>("http://localhost:8080/absence/list")
-      .subscribe((absenceList: Absence[]) => {
-
-
-        this._listAbsences.next(absenceList);
-      })
-    return this._listAbsences;
+  getListAbsences(): Observable<Absence[]> {
+    this.http.get<Absence[]>(`${this.baseUrl}/list`)
+      .pipe(
+        tap(absenceList => this._listAbsences.next(absenceList))
+      ).subscribe();
+    return this._listAbsences.asObservable();
   }
 
-  getListFilteredAbsencesbyId() {
-
-    this.http
-      .get<Absence[]>("http://localhost:8080/users/absences")
-      .subscribe((filteredAbsences: Absence[]) => {
-        console.log(filteredAbsences)
-
-        let filteredAbsenceById = filteredAbsences.filter(absence => absence.validity === null);
-        this._listFilteredbyId.next(filteredAbsenceById);
-        console.log(filteredAbsences)
-        console.log(this._listFilteredbyId)
-      })
+  getListFilteredAbsencesById(): void {
+    this.http.get<Absence[]>(this.userUrl)
+      .pipe(
+        tap(filteredAbsences => {
+          const filteredAbsenceById = filteredAbsences.filter(absence => absence.validity === null || absence.validity === false);
+          this._listFilteredbyId.next(filteredAbsenceById);
+        })
+      ).subscribe();
   }
-  getListAbsenceById() {
-    this.http
-      .get<Absence[]>("http://localhost:8080/users/absences")
-      .subscribe((absencesList: Absence[]) => {
 
-        console.log(absencesList)
-        this._listbyId.next(absencesList);
-        console.log(this._listbyId)
-      })
-    return this._listbyId;
+  getListAbsencesById(): Observable<Absence[]> {
+    this.http.get<Absence[]>(this.userUrl)
+      .pipe(
+        tap(absencesList => this._listbyId.next(absencesList))
+      ).subscribe();
+    return this._listbyId.asObservable();
+  }
+
+  deleteAbsence(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`)
+      .pipe(
+        tap(() => {
+          const updatedList = this._listAbsences.value.filter(absence => absence.id !== id);
+          this._listAbsences.next(updatedList);
+        })
+      );
   }
 }
-
-

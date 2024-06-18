@@ -1,1 +1,49 @@
-<p>depot-formation works!</p>
+<h2>Formulaire de dépôt de dossier d'inscription à une formation</h2>
+
+<form class="formulaire" [formGroup]="formFolder" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Formation</mat-label>
+    <mat-select formControlName="training">
+      @for(training of trainingList; track training.id){
+      <mat-option [value]="training">
+        {{ training.name }}
+      </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <!-- CV Upload -->
+  <mat-form-field>
+    <label for="CV">CV</label>
+    <mat-toolbar>
+      <input matInput [value]="fileName1" readonly />
+    </mat-toolbar>
+    <input type="file" id="CV" (change)="selectFile($event, 'CV')" />
+  </mat-form-field>
+
+  <!-- Attestation FranceTravail Upload -->
+  <mat-form-field>
+    <label for="ARE">Attestation FranceTravail</label>
+    <mat-toolbar>
+      <input matInput [value]="fileName2" readonly />
+    </mat-toolbar>
+    <input type="file" id="ARE" (change)="selectFile($event, 'ARE')" />
+  </mat-form-field>
+
+  <!-- Attestation de la Sécurité Sociale Upload -->
+  <mat-form-field>
+    <label for="secu">Attestation de la Sécurité Sociale</label>
+    <mat-toolbar>
+      <input matInput [value]="fileName3" readonly />
+    </mat-toolbar>
+    <input type="file" id="secu" (change)="selectFile($event, 'secu')" />
+  </mat-form-field>
+
+  <!-- Display message if any -->
+  @if(message){
+  <div  class="message">
+    {{ message }}
+  </div>
+  }
+  <button mat-flat-button type="submit" class="button">Soumettre</button>
+</form>

@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
 import {
   MatCell,
   MatCellDef,
@@ -18,8 +17,8 @@ import { MatRadioButton, MatRadioGroup } from "@angular/material/radio";
 import { MatAnchor, MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
 import { Absence } from "../model/absence";
-import { AbsenceServiceService } from "../service/absence-service.service";
 import {DatePipe} from "@angular/common";
+import {AbsenceService} from "../service/absence-service.service";
 
 @Component({
   selector: 'app-list-absence',
@@ -51,29 +50,26 @@ import {DatePipe} from "@angular/common";
   styleUrls: ['validation-absence.component.scss']
 })
 export class ValidationAbsenceComponent implements OnInit {
-
-  absenceService = inject(AbsenceServiceService);
-  http = inject(HttpClient);
+  absenceService = inject(AbsenceService)
   displayedColumns: string[] = ['id', 'lastname', 'firstname', 'email', 'statut', 'justification', 'boutons'];
   listAbsences: Absence[] = [];
   dataSource = new MatTableDataSource<Absence>(this.listAbsences);
 
+
   ngOnInit(): void {
-    this.absenceService.getListAbsence().subscribe(absences => {
-      console.log('Absences:', absences);  // Vérification des données récupérées
+    this.absenceService.getListAbsences().subscribe(
+      (absences: Absence[]) => {
       this.listAbsences = absences;
       this.dataSource.data = this.listAbsences;
-      console.log(this.listAbsences);  // Vérification des données après mise à jour du tableau
     });
   }
 
   onDeleteAbsence(id: number): void {
-    this.http.delete("http://localhost:8080/absence/" + id)
-      .subscribe(result => {
-        console.log(result);
-        // Mise à jour de la liste des absences après suppression
-        this.listAbsences = this.listAbsences.filter(absence => absence.id !== id);
-        this.dataSource.data = this.listAbsences;
-      });
+    this.absenceService.deleteAbsence(id).subscribe(
+      (result: any) => {
+      console.log(result);
+      this.listAbsences = this.listAbsences.filter(absence => absence.id !== id);
+      this.dataSource.data = this.listAbsences;
+    });
   }
 }

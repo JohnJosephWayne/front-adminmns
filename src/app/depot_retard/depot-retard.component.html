@@ -1,1 +1,33 @@
-<p>depot-retard works!</p>
+<h2>Formulaire de dépôt de retard</h2>
+
+<form class="formulaire" [formGroup]="formLateness" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label class="label-color">Cause</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="cause" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Date du retard</mat-label>
+    <input
+      matInput
+      [matDatepicker]="pickerDate"
+      formControlName="pickerDate"
+    />
+    <mat-hint>MM/JJ/AAAA</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="pickerDate"></mat-datepicker-toggle>
+    <mat-datepicker #pickerDate></mat-datepicker>
+    @if (formLateness.get("pickerDate")?.hasError('required')) {
+      <mat-error>La date est obligatoire</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Commentaires</mat-label>
+    <textarea matInput placeholder="Ecrire un commentaire au besoin"></textarea>
+  </mat-form-field>
+
+
+  <button mat-flat-button class="button">Soumettre</button>
+</form>

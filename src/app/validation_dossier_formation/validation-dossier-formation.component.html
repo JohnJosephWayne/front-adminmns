@@ -1,1 +1,63 @@
-<p>validation-dossier-formation works!</p>
+<a routerLink="/add-absence" mat-raised-button>Ajouter une absence</a>
+
+<br><br>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let absence"> {{absence.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="lastname">
+    <th mat-header-cell *matHeaderCellDef> NOM </th>
+    <td mat-cell *matCellDef="let absence"> {{absence.studentAbsence.lastname}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="firstname">
+    <th mat-header-cell *matHeaderCellDef> PRÉNOM </th>
+    <td mat-cell *matCellDef="let absence"> {{absence.studentAbsence.firstname}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef> EMAIL </th>
+    <td mat-cell *matCellDef="let absence"> {{absence.studentAbsence.email}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="creationDate">
+    <th mat-header-cell *matHeaderCellDef> Création de l'absence </th>
+    <td mat-cell *matCellDef="let absence"> {{absence.creationDate | date}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="start">
+    <th mat-header-cell *matHeaderCellDef> Début </th>
+    <td mat-cell *matCellDef="let absence"> {{absence.start | date}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="end">
+    <th mat-header-cell *matHeaderCellDef> Fin </th>
+    <td mat-cell *matCellDef="let absence"> {{absence.end | date}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="justification">
+    <th mat-header-cell *matHeaderCellDef> Justificatif </th>
+    <td mat-cell *matCellDef="let absence"> {{absence.justification}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="statut">
+    <th mat-header-cell *matHeaderCellDef> STATUT </th>
+    <td mat-cell *matCellDef="let absence"> {{absence.validity ? 'Validé' : 'Non validé'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="boutons">
+    <th mat-header-cell *matHeaderCellDef> MODIFIER/SUPPRIMER </th>
+    <td mat-cell *matCellDef="let absence">
+      <button mat-raised-button [routerLink]="['/edit-absence', absence.id]" color="primary">Modifier</button>
+      <button mat-raised-button (click)="onDeleteAbsence(absence.id)" color="accent">Supprimer</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>

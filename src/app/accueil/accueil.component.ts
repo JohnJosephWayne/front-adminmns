@@ -3,11 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {AuthentificationService} from "../authentification.service";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {MatDivider} from "@angular/material/divider";
-import {LatenessServiceService} from "../service/lateness-service.service";
-import {AbsenceServiceService} from "../service/absence-service.service";
-import {StudentFolderServiceService} from "../service/student-folder-service.service";
-import {User} from "../model/user";
-import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
+import {LatenessService} from "../service/lateness-service.service";
+import {AbsenceService} from "../service/absence-service.service";
+import {StudentFolderService} from "../service/student-folder-service.service";
 
 @Component({
   selector: 'app-accueil',
@@ -22,23 +20,27 @@ import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 })
 export class AccueilComponent implements OnInit {
   http: HttpClient = inject(HttpClient);
-  latenessService: LatenessServiceService = inject(LatenessServiceService);
-  absenceService: AbsenceServiceService = inject(AbsenceServiceService);
-  studentFolderService: StudentFolderServiceService = inject(StudentFolderServiceService);
+  latenessService: LatenessService = inject(LatenessService);
+  absenceService: AbsenceService = inject(AbsenceService);
+  studentFolderService: StudentFolderService = inject(StudentFolderService);
   authentification: AuthentificationService = inject(AuthentificationService)
 
   userInfo: any
   invalidFolders: any[] = [];
-  nbToTreatFolder: number = 0;
+  nbToTreatFolders: number = 0;
   invalidAbsences: any[] = [];
   nbToTreatAbsences: number = 0;
   invalidLateness: any[] = [];
   nbToTreatLateness: number = 0;
-  absenceList: any[] = [];
-  folderList: any[] = [];
+  absencesList: any[] = [];
+  foldersList: any[] = [];
   latenessList: any[] = [];
-  filteredAbsenceById: any[] = []
-  listbyId: any[] = []
+  filteredAbsencesById: any[] = [];
+  absencesListById: any[] = [];
+  filteredLatenessById: any[] = [];
+  latenessListById: any[] = [];
+  filteredFoldersById: any[] = [];
+  foldersListById: any[] = [];
 
   ngOnInit(): void {
 
@@ -61,31 +63,46 @@ export class AccueilComponent implements OnInit {
         this.absenceService.refresh()
 
         this.absenceService._listAbsences.subscribe((
-          absenceList => this.absenceList = absenceList));
-        this.absenceService.getListAbsence()
+          absencesList => this.absencesList = absencesList));
+        this.absenceService.getListAbsences()
 
-        this.studentFolderService._studentFolder.subscribe(
-          invalidFolder => this.invalidFolders = invalidFolder)
+        this.studentFolderService._studentFolders.subscribe(
+          invalidFolders => this.invalidFolders = invalidFolders)
         this.studentFolderService.refresh()
 
-        this.studentFolderService._listFolder.subscribe((
-          folderList => this.folderList = folderList));
-        this.studentFolderService.getListFolder();
+        this.studentFolderService._listFolders.subscribe((
+          foldersList => this.foldersList = foldersList));
+        this.studentFolderService.getListFolders();
       }
     })
 
     this.authentification._connectedUser.subscribe(userInfo => {
       this.userInfo = userInfo;
 
-        this.absenceService._listFilteredbyId.subscribe((
-          filteredAbsencesById => this.filteredAbsenceById = filteredAbsencesById));
-
-        this.absenceService.getListFilteredAbsencesbyId();
-
+      this.absenceService._listFilteredbyId.subscribe((
+        filteredAbsencesById => this.filteredAbsencesById = filteredAbsencesById));
+      this.absenceService.getListFilteredAbsencesById();
 
       this.absenceService._listbyId.subscribe((
-        allAbsencesById => this.listbyId = allAbsencesById));
-      this.absenceService.getListAbsence()
+        allAbsencesById => this.absencesListById = allAbsencesById));
+      this.absenceService.getListAbsencesById();
+
+      this.latenessService._listFilteredbyId.subscribe((
+        filteredLatenessById => this.filteredLatenessById = filteredLatenessById));
+      this.latenessService.getListFilteredLatenessById();
+
+      this.latenessService._listbyId.subscribe((
+        allLatenessById => this.latenessListById = allLatenessById));
+      this.latenessService.getListLatenessById();
+
+      this.studentFolderService._listFilteredbyId.subscribe((
+        filteredFoldersById => this.filteredFoldersById = filteredFoldersById));
+      this.studentFolderService.getListFilteredFoldersById();
+
+      this.studentFolderService._listbyId.subscribe((
+        allFoldersById => this.foldersListById = allFoldersById));
+      this.studentFolderService.getListFoldersById();
+
     })
   }
 }

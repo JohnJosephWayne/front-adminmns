@@ -9,7 +9,7 @@ import {MatSelect} from "@angular/material/select";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
-import {AbsenceServiceService} from "../service/absence-service.service";
+import {AbsenceService} from "../service/absence-service.service";
 import {Absence} from "../model/absence";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 
@@ -39,7 +39,7 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/m
 })
 
 export class EditAbsenceComponent implements OnInit {
-  absenceService: AbsenceServiceService = inject(AbsenceServiceService);
+  absenceService: AbsenceService= inject(AbsenceService);
   http: HttpClient = inject(HttpClient);
   router: Router = inject(Router);
   route: ActivatedRoute = inject(ActivatedRoute);
@@ -76,12 +76,7 @@ export class EditAbsenceComponent implements OnInit {
           })
       }
     })
-
-    this.absenceService.getListAbsence().subscribe(absences => {
-      console.log('Absences:', absences);  // Vérification des données récupérées
-      this.listAbsences = absences;
-      console.log(this.listAbsences);  // Vérification des données après mise à jour du tableau
-    });
+    this.absenceService.getListAbsences()
   }
 
   onSubmit() {
@@ -94,11 +89,10 @@ export class EditAbsenceComponent implements OnInit {
         this.http
           .put("http://localhost:8080/absence/" + this.idAbsence, this.formulaireEditAbsence.value)
           .subscribe(result => {
-            if (this.absence?.validity == null) {
-              this.absence?.validity == ('treated')
+            if (this.absence?.validity != null || this.absence?.validity != 0) {
               this.absence?.validity == true;
             } else {
-              this.absence.validity == false;
+              this.absence.validity = false;
             }
             this.router.navigateByUrl("/accueil")
           });

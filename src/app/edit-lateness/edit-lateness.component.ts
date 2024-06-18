@@ -45,7 +45,7 @@ export class EditLatenessComponent implements OnInit {
   route: ActivatedRoute = inject(ActivatedRoute);
   formBuilder: FormBuilder = inject(FormBuilder);
   idLateness: number | null = null;
-  listLatenesss: Lateness[] = [];
+  listLateness: Lateness[] = [];
   lateness: Lateness | undefined;
 
   formulaireEditLateness: FormGroup = this.formBuilder.group(
@@ -77,11 +77,7 @@ export class EditLatenessComponent implements OnInit {
       }
     })
 
-    this.latenessServiceService.getListLateness().subscribe(latenesss => {
-      console.log('Latenesss:', latenesss);  // Vérification des données récupérées
-      this.listLatenesss = latenesss;
-      console.log(this.listLatenesss);  // Vérification des données après mise à jour du tableau
-    });
+    this.latenessService.getListLateness();
   }
 
   onSubmit() {

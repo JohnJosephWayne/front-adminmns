@@ -4,21 +4,21 @@
 
     <div class="dashboard">
     <mat-grid-list cols="3" rowHeight="100px">
-      <mat-grid-tile><h4>Retards à traiter</h4></mat-grid-tile>
-      <mat-grid-tile><h4>Absences à traiter</h4></mat-grid-tile>
-      <mat-grid-tile><h4>Dossiers d'inscription à traiter</h4></mat-grid-tile>
+      <mat-grid-tile class="tile"><h4>Retards à traiter</h4></mat-grid-tile>
+      <mat-grid-tile class="tile"><h4>Absences à traiter</h4></mat-grid-tile>
+      <mat-grid-tile class="tile"><h4>Dossiers d'inscription à traiter</h4></mat-grid-tile>
 
       <mat-grid-tile class="tile">{{ this.invalidLateness.length}}</mat-grid-tile>
       <mat-grid-tile class="tile">{{ this.invalidAbsences.length }}</mat-grid-tile>
       <mat-grid-tile class="tile">{{ this.invalidFolders.length }}</mat-grid-tile>
 
-      <mat-grid-tile><h4>Retards totaux</h4></mat-grid-tile>
-      <mat-grid-tile><h4>Absences totaux</h4></mat-grid-tile>
-      <mat-grid-tile><h4>Dossiers d'inscription totaux</h4></mat-grid-tile>
+      <mat-grid-tile class="tile"><h4>Retards totaux</h4></mat-grid-tile>
+      <mat-grid-tile class="tile"><h4>Absences totaux</h4></mat-grid-tile>
+      <mat-grid-tile class="tile"><h4>Dossiers d'inscription totaux</h4></mat-grid-tile>
 
-      <mat-grid-tile>{{ this.latenessList.length }}</mat-grid-tile>
-      <mat-grid-tile>{{ this.absenceList.length }}</mat-grid-tile>
-      <mat-grid-tile>{{ this.folderList.length }}</mat-grid-tile>
+      <mat-grid-tile class="tile">{{ this.latenessList.length }}</mat-grid-tile>
+      <mat-grid-tile class="tile">{{ this.absencesList.length }}</mat-grid-tile>
+      <mat-grid-tile class="tile">{{ this.foldersList.length }}</mat-grid-tile>
 
     </mat-grid-list>
 
@@ -30,21 +30,21 @@
 
   <div class="dashboard">
     <mat-grid-list cols="3" rowHeight="100px">
-      <mat-grid-tile><h4>Retards à traiter</h4></mat-grid-tile>
-      <mat-grid-tile><h4>Absences à traiter</h4></mat-grid-tile>
-      <mat-grid-tile><h4>Dossiers d'inscription à traiter</h4></mat-grid-tile>
+      <mat-grid-tile class="tile"><h4>Retards à traiter</h4></mat-grid-tile>
+      <mat-grid-tile class="tile"><h4>Absences à traiter</h4></mat-grid-tile>
+      <mat-grid-tile class="tile"><h4>Dossiers d'inscription à traiter</h4></mat-grid-tile>
 
-      <mat-grid-tile class="tile">2</mat-grid-tile>
-      <mat-grid-tile class="tile">{{ this.filteredAbsenceById.length }}</mat-grid-tile>
-      <mat-grid-tile class="tile"> 2 </mat-grid-tile>
+      <mat-grid-tile class="tile">{{ this.filteredLatenessById.length }}</mat-grid-tile>
+      <mat-grid-tile class="tile">{{ this.filteredAbsencesById.length }}</mat-grid-tile>
+      <mat-grid-tile class="tile"> {{ this.filteredFoldersById.length }} </mat-grid-tile>
 
-      <mat-grid-tile><h4>Retards totaux</h4></mat-grid-tile>
-      <mat-grid-tile><h4>Absences totaux</h4></mat-grid-tile>
-      <mat-grid-tile><h4>Dossiers d'inscription totaux</h4></mat-grid-tile>
+      <mat-grid-tile class="tile"><h4>Retards totaux</h4></mat-grid-tile>
+      <mat-grid-tile class="tile"><h4>Absences totaux</h4></mat-grid-tile>
+      <mat-grid-tile class="tile"><h4>Dossiers d'inscription totaux</h4></mat-grid-tile>
 
-      <mat-grid-tile>2</mat-grid-tile>
-      <mat-grid-tile>{{ this.listbyId.length }} </mat-grid-tile>
-      <mat-grid-tile>2</mat-grid-tile>
+      <mat-grid-tile>{{ this.latenessListById.length }}</mat-grid-tile>
+      <mat-grid-tile>{{ this.absencesListById.length }} </mat-grid-tile>
+      <mat-grid-tile>{{ this.foldersListById.length }}</mat-grid-tile>
 
     </mat-grid-list>
 

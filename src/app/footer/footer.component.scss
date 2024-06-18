@@ -1,7 +1,10 @@
 .footer {
   display: flex;
+  flex:1;
+  margin: auto;
 }
 .footer span{
-  margin: 20px auto 10px;
+  margin: 20px auto;
+  padding: 40px;
   font-size: 10px;
 }

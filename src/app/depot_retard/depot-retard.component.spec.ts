@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DepotRetardComponent } from './depot-retard.component';
+import { DepotLatenessComponent } from './depot-retard.component';
 
-describe('DepotRetardComponent', () => {
-  let component: DepotRetardComponent;
-  let fixture: ComponentFixture<DepotRetardComponent>;
+describe('DepotLatenessComponent', () => {
+  let component: DepotLatenessComponent;
+  let fixture: ComponentFixture<DepotLatenessComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DepotRetardComponent]
+      imports: [DepotLatenessComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(DepotRetardComponent);
+
+    fixture = TestBed.createComponent(DepotLatenessComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
