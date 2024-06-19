@@ -109,4 +109,8 @@ export class EditAbsenceComponent implements OnInit {
       }
     }
   }
+  comparateurEtat(a: any, b: any) {
+
+    return a != null && b != null && a.id == b.id;
+  }
 }

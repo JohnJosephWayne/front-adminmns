@@ -34,7 +34,7 @@
     <td mat-cell *matCellDef="let folder">
 
         @for (doc of folder.documentList; track doc.name; let i = $index) {
-        {{doc.name}}{{i < folder.documentList.length - 1 ? ', ' : ''}}
+          <a routerLink="/add-student">{{doc.name}}{{i < folder.documentList.length - 1 ? ', ' : ''}}</a>
       }
 
     </td>
