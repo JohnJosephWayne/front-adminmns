@@ -69,7 +69,7 @@ export class EditLatenessComponent implements OnInit {
             next: (user) => this.formulaireEditLateness.patchValue(user),
             error: (error) => {
               if (error.status == 404) {
-                alert("L'lateness n'existe pas");
+                alert("Lateness n'existe pas");
               }
             }
           })

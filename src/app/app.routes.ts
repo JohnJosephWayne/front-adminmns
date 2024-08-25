@@ -11,6 +11,7 @@ import {EditAbsenceComponent} from "./edit_absence/edit-absence.component";
 import {EditLatenessComponent} from "./edit-lateness/edit-lateness.component";
 import {ValidationLatenessComponent} from "./validation_lateness/validation-lateness.component";
 import {ListFolderComponent} from "./list-folder/list-folder.component";
+import {userGuard} from "./user.guard";
 
 export const routes: Routes = [
   {path: "accueil", component: AccueilComponent},
@@ -19,10 +20,10 @@ export const routes: Routes = [
   {path: "add-student", component: EditStudentComponent, canActivate: [adminGuard]},
   {path: "edit-student/:id", component: EditStudentComponent, canActivate: [adminGuard]},
   {path: "list-student", component: ListStudentComponent},
-  {path: "add-absence", component: EditAbsenceComponent, canActivate: [adminGuard]},
+  {path: "add-absence", component: EditAbsenceComponent, canActivate: [userGuard]},
   {path: "edit-absence/:id", component: EditAbsenceComponent, canActivate: [adminGuard]},
   {path: "list-absence", component: ValidationAbsenceComponent},
-  {path: "add-lateness", component: EditLatenessComponent, canActivate: [adminGuard]},
+  {path: "add-lateness", component: EditLatenessComponent, canActivate: [userGuard]},
   {path: "edit-lateness/:id", component: EditLatenessComponent, canActivate: [adminGuard]},
   {path: "list-lateness", component: ValidationLatenessComponent},
   {path: "list-folder", component:ListFolderComponent},
