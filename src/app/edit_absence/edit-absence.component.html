@@ -42,6 +42,7 @@
 
   </mat-form-field>
 
+  @if (userInfo?.role?.name == "ADMIN" || userInfo?.role?.name == "VALIDATOR") {
   <mat-form-field>
     <mat-label>Date de création de l'absence</mat-label>
     <input matInput
@@ -56,6 +57,7 @@
       <mat-error>La date de création de l'absence est obligatoire</mat-error>
     }
   </mat-form-field>
+  }
 
   <mat-form-field>
     <mat-label>Début de l'absence</mat-label>
@@ -85,13 +87,16 @@
     }
   </mat-form-field>
 
-  <mat-radio-group
-    formControlName="status"
-    aria-label="Selectionner un statut"
-  >
-    <mat-radio-button value="treated">Validée</mat-radio-button>
-    <mat-radio-button value="notTreated">Non validée</mat-radio-button>
-  </mat-radio-group>
+  @if (userInfo?.role?.name == "ADMIN" || userInfo?.role?.name == "VALIDATOR") {
+    <mat-radio-group
+      formControlName="status"
+      aria-label="Selectionner un statut"
+    >
+      <mat-radio-button value="true">Validée</mat-radio-button>
+      <mat-radio-button value="false">Non validée</mat-radio-button>
+    </mat-radio-group>
+  }
+
 
   <button type="submit" mat-raised-button>
     {{ idAbsence == null ? "Ajouter l'absence" : "Modifier l'absence" }}
