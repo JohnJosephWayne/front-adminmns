@@ -12,6 +12,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AbsenceServiceService} from "../service/absence-service.service";
 import {Absence} from "../model/absence";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
+import {userGuard} from "../user.guard";
+import {AuthentificationService} from "../authentification.service";
+import {AbsenceModel} from "../model/absenceModel";
+import {User} from "../model/user";
 
 @Component({
   selector: 'app-edit-absence',
@@ -47,27 +51,67 @@ export class EditAbsenceComponent implements OnInit {
   idAbsence: number | null = null;
   listAbsences: Absence[] = [];
   absence: Absence | undefined;
+  authentificationService: AuthentificationService = inject(AuthentificationService);
+  userInfo : any;
 
   formulaireEditAbsence: FormGroup = this.formBuilder.group(
     {
-      email: ["", [Validators.required, Validators.email]],
-      lastname: ["", [Validators.required]],
-      firstname: ["", [Validators.required]],
-      creationDate: ["", [Validators.required]],
-      start: ["", [Validators.required]],
-      end: ["", [Validators.required]],
-      status: ["", [Validators.required]]
-    }
-  )
+      email: [{value: '', disabled: true}, [Validators.required, Validators.email]],
+      lastname: [{value: '', disabled: true}, [Validators.required]],
+      firstname: [{value: '', disabled: true}, [Validators.required]],
+      creationDate: [{value: '', disabled: true}, [Validators.required]],
+      start: [{value: '', disabled: true}, [Validators.required]],
+      end: [{value: '', disabled: true}, [Validators.required]],
+      status: [{value: '', disabled: true}, [Validators.required]]
+    });
+
+  initForm():void  {
+    this.authentificationService
+      .getConnectedUser()
+      .then(
+        value => {
+          if(value?.role?.name== 'ADMIN' || value?.role?.name== 'VALIDATOR'){
+            this.formulaireEditAbsence = this.formBuilder.group(
+              {
+                email: ["", [Validators.required, Validators.email]],
+                lastname: ["", [Validators.required]],
+                firstname: ["", [Validators.required]],
+                creationDate: ["", [Validators.required]],
+                start: ["", [Validators.required]],
+                end: ["", [Validators.required]],
+                status: ["", [Validators.required]]
+              }
+            )
+          }else if(value?.role?.name== 'STUDENT'){
+            this.formulaireEditAbsence = this.formBuilder.group(
+              {
+                email: [{value: value.email, disabled: true}, [Validators.required, Validators.email]],
+                lastname: [{value: value.lastname, disabled: true}, [Validators.required]],
+                firstname: [{value: value.firstname, disabled: true}, [Validators.required]],
+                creationDate: [{value: new Date(), disabled: true}, [Validators.required]],
+                start: ["", [Validators.required]],
+                end: ["", [Validators.required]],
+                status: [{value: null, disabled: true}, [Validators.required]]
+              }
+            )
+          }
+        })
+    ;
+
+  }
 
   ngOnInit() {
+    this.initForm();
+    this.authentificationService._connectedUser.subscribe(userInfo => {
+      this.userInfo = userInfo;
+    })
 
     this.route.params.subscribe(parameter => {
       this.idAbsence = parameter['id'];
       if (this.idAbsence != null && !isNaN(this.idAbsence)) {
         this.http.get("http://localhost:8080/absence/" + this.idAbsence)
           .subscribe({
-            next: (user) => this.formulaireEditAbsence.patchValue(user),
+            next: (absence) => this.formulaireEditAbsence.patchValue(this.flatAbsence({absence: absence})),
             error: (error) => {
               if (error.status == 404) {
                 alert("L'absence n'existe pas");
@@ -76,23 +120,46 @@ export class EditAbsenceComponent implements OnInit {
           })
       }
     })
-
-    this.absenceService.getListAbsence().subscribe(absences => {
-      console.log('Absences:', absences);  // Vérification des données récupérées
-      this.listAbsences = absences;
-      console.log(this.listAbsences);  // Vérification des données après mise à jour du tableau
-    });
   }
 
+  flatAbsence({absence}: { absence: any }){
+    console.log("absence", absence)
+    let flatAbsence = {
+      email: absence.studentAbsence.email,
+      lastname: absence.studentAbsence.lastname,
+      firstname: absence.studentAbsence.firstname,
+      creationDate: absence.creationDate,
+      start: absence.start,
+      end: absence.end,
+      status: absence.status,
+    }
+    return flatAbsence;
+  }
   onSubmit() {
     if (this.formulaireEditAbsence.valid) {
 
-      console.log(this.formulaireEditAbsence.value)
+      console.log("FORM = ",this.formulaireEditAbsence.getRawValue())
       console.log(this.idAbsence)
+
+      let formRawValue = this.formulaireEditAbsence.getRawValue();
+      let absenceModel : AbsenceModel = {
+        id : this.idAbsence,
+        validity: formRawValue.status,
+        creationDate: formRawValue.creationDate,
+        start: formRawValue.start,
+        end: formRawValue.end,
+        studentAbsence:{
+          id : null,
+          email : formRawValue.email,
+          lastname : formRawValue.lastname,
+          firstname : formRawValue.firstname,
+        }
+      }
+
 
       if (this.idAbsence) {
         this.http
-          .put("http://localhost:8080/absence/" + this.idAbsence, this.formulaireEditAbsence.value)
+          .put("http://localhost:8080/absence/" + this.idAbsence, absenceModel)
           .subscribe(result => {
             if (this.absence?.validity == null) {
               this.absence?.validity == ('treated')
@@ -103,10 +170,16 @@ export class EditAbsenceComponent implements OnInit {
             this.router.navigateByUrl("/accueil")
           });
       } else {
-        this.http.post("http://localhost:8080/absence", this.formulaireEditAbsence.value)
+        this.http.post("http://localhost:8080/absence", absenceModel)
           .subscribe(result =>
             this.router.navigateByUrl("/accueil"));
       }
     }
   }
+  comparateurEtat(a: any, b: any) {
+
+    return a != null && b != null && a.id == b.id;
+  }
+
+  protected readonly User = User;
 }

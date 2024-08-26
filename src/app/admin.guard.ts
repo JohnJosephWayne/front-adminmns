@@ -10,7 +10,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
   return authentification.getConnectedUser().then(user =>
     {
 
-      if(user == null || user.role.name != "ADMIN") {
+      if(user == null || user.role?.name != "ADMIN") {
         return router.parseUrl('/connexion');
       }
 

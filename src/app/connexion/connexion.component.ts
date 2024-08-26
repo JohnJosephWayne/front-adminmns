@@ -16,7 +16,31 @@ import {MatButtonToggle} from "@angular/material/button-toggle";
 import {AuthentificationService} from "../authentification.service";
 import {User} from "../model/user";
 
-@Component({
+/**
+ * Component for user login.
+ *
+ * This component provides a user interface for users to log in to the application.
+ * It uses Angular Reactive Forms to manage the login form and user authentication.
+ *
+ * ### Features:
+ * - Displays a form with fields for email and password.
+ * - Validates the form inputs before submitting the data to the server.
+ * - Sends an HTTP POST request to the `/connexion` endpoint to receive a JWT token.
+ * - Stores the JWT token in the browser's localStorage.
+ * - Redirects the user to the home page after successful login.
+ * - Displays an error message in case of a failed login.
+ *
+ * ### Dependencies:
+ * - Uses Angular Material for UI components.
+ * - Uses the HttpClient module for HTTP requests.
+ * - Uses the `AuthentificationService` service to obtain information about the logged-in user.
+ *
+ * ### Usage:
+ * Ensure that the `AuthentificationService` is properly configured and that the `/connexion`
+ * endpoint is operational on the backend server.
+ */
+
+ @Component({
   selector: 'app-connexion',
   standalone: true,
   imports: [

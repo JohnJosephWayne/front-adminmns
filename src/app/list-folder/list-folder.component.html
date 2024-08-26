@@ -1,0 +1,63 @@
+
+<table mat-table [dataSource]="listFolders" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let folder"> {{folder.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="firstname">
+    <th mat-header-cell *matHeaderCellDef> NOM </th>
+    <td mat-cell *matCellDef="let folder"> {{folder.student.lastname}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="lastname">
+    <th mat-header-cell *matHeaderCellDef> PRENOM </th>
+    <td mat-cell *matCellDef="let folder"> {{folder.student.firstname}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef> EMAIL </th>
+    <td mat-cell *matCellDef="let folder"> {{folder.student.email}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="validity">
+    <th mat-header-cell *matHeaderCellDef> STATUT </th>
+    <td mat-cell *matCellDef="let folder"> {{folder.validity ? 'Validé' : 'Non validé'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="documentList">
+    <th mat-header-cell *matHeaderCellDef> DOCUMENTS </th>
+    <td mat-cell *matCellDef="let folder">
+
+        @for (doc of folder.documentList; track doc.name; let i = $index) {
+          <a routerLink="/add-student">{{doc.name}}{{i < folder.documentList.length - 1 ? ', ' : ''}}</a>
+      }
+
+    </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="boutons">
+    <th mat-header-cell *matHeaderCellDef> MODIFIER/SUPPRIMER </th>
+    <td mat-cell *matCellDef="let folder">
+      <button mat-raised-button [routerLink]="['/edit-folder', folder.id]"  color="primary">Modifier</button>
+      <button mat-raised-button (click)="onDeleteFolder(folder.id)"  color="accent">Supprimer</button>
+    </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <!--  <tr class="mat-row" *matNoDataRow>-->
+  <!--    <td class="mat-cell" colspan="4">Aucun match "{{input.value}}"</td>-->
+  <!--  </tr>-->
+
+</table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+

@@ -29,5 +29,7 @@ export class LatenessServiceService {
         .subscribe((latenessList: Lateness[]) => {
           this._listLateness.next(latenessList);
         });
+
+      return this._listLateness;
     }
 }

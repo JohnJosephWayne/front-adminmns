@@ -1,0 +1,122 @@
+<h2>Ajouter/Modifier un employé </h2>
+
+
+<form class="formLog" [formGroup]="formulaireEditEmployee" (ngSubmit)="onSubmit()">
+
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      formControlName="email"
+      placeholder="Ex. john.doe@domain.com"
+    />
+
+    @if (formulaireEditEmployee.get("email")?.hasError('required')) {
+      <mat-error>L'email est obligatoire</mat-error>
+    }
+    @if (formulaireEditEmployee.get("email")?.hasError('email')) {
+      <mat-error>L'email est mal formé</mat-error>
+    }
+  </mat-form-field>
+
+  @if (idEmployee == null){
+
+    <mat-form-field>
+      <mat-label class="label-color">Mot de passe</mat-label>
+      <input
+        matInput
+        formControlName="password"
+        [type]="afficheMotDePasse ? 'text' : 'password'"
+      />
+      <button
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="afficheMotDePasse = !afficheMotDePasse"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="afficheMotDePasse"
+      >
+        <mat-icon>{{
+            afficheMotDePasse ? "visibility" : "visibility_off"
+          }}
+        </mat-icon>
+      </button>
+
+
+      @if (formulaireEditEmployee.get('password')?.hasError('required')){
+        <mat-error>Le mot de passe est obligatoire</mat-error>
+      }
+      @if (formulaireEditEmployee.get('password')?.hasError('pattern')){
+        <mat-error>8 caractères, minuscule, majuscule, caractère spécial</mat-error>
+      }
+
+    </mat-form-field>
+
+  }
+
+  <mat-form-field>
+    <mat-label>Nom</mat-label>
+    <input
+      matInput
+      formControlName="lastname"
+      placeholder="Votre nom de famille"
+    />
+    @if (formulaireEditEmployee.get("lastname")?.hasError('required')) {
+      <mat-error>Le nom de famille est obligatoire</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Prénom</mat-label>
+    <input
+      matInput
+      formControlName="firstname"
+      placeholder="Votre prénom"
+    />
+
+    @if (formulaireEditEmployee.get("firstname")?.hasError('required')) {
+      <mat-error>Le prénom est obligatoire</mat-error>
+    }
+
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Département</mat-label>
+    <input
+      matInput
+      formControlName="department"
+      placeholder="Votre département"
+    />
+
+    @if (formulaireEditEmployee.get("department")?.hasError('required')) {
+      <mat-error>Le département est obligatoire</mat-error>
+    }
+
+  </mat-form-field>
+
+  <mat-radio-group
+    formControlName="gender"
+    aria-label="Selectionner un genre"
+  >
+    <mat-radio-button value="M">Homme</mat-radio-button>
+    <mat-radio-button value="F">Femme</mat-radio-button>
+    <mat-radio-button value="A">Autre</mat-radio-button>
+  </mat-radio-group>
+
+  <mat-form-field>
+    <mat-label>Role</mat-label>
+    <mat-select
+      formControlName="role"
+      [compareWith]="comparateurEtat">
+      @for (role of rolList; track role.id) {
+        <mat-option [value]="role">{{ role.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+
+  <button type="submit" mat-raised-button color="primary">
+    {{ idEmployee == null ? "Ajouter l'employé" : "Modifier l'employé" }}
+  </button>
+
+</form>

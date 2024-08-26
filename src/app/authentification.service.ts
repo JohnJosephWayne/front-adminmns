@@ -26,7 +26,7 @@ export class AuthentificationService {
       if(this._connectedUser.value == null) {
 
         const user = await firstValueFrom<User>(this.http
-          .get<User>("http://localhost:8080/user-by-email/" + body.sub));
+          .get<User>("http://localhost:8080/users/user-by-email/" + body.sub));
 
         this._connectedUser.next(user);
 

@@ -90,7 +90,10 @@ export class EditStudentComponent {
       console.log(this.idStudent)
 
       if (this.idStudent) {
-        this.http.put("http://localhost:8080/student/" + this.idStudent, this.formulaireEditStudent.value)
+
+        const utilisateur = {...this.formulaireEditStudent.value, password : "ToChangePassword2?"}
+
+        this.http.put("http://localhost:8080/student/" + this.idStudent, utilisateur)
           .subscribe(result => this.router.navigateByUrl("/list-student"));
       } else {
         this.http.post("http://localhost:8080/student", this.formulaireEditStudent.value)
