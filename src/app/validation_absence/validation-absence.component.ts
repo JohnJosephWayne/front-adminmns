@@ -18,7 +18,7 @@ import { MatRadioButton, MatRadioGroup } from "@angular/material/radio";
 import { MatAnchor, MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
 import { Absence } from "../model/absence";
-import { AbsenceServiceService } from "../service/absence-service.service";
+import {AbsenceService} from "../service/absence-service.service";
 import {DatePipe} from "@angular/common";
 import {MatSort} from "@angular/material/sort";
 
@@ -54,14 +54,14 @@ import {MatSort} from "@angular/material/sort";
 })
 export class ValidationAbsenceComponent implements OnInit {
 
-  absenceService = inject(AbsenceServiceService);
+  absenceService = inject(AbsenceService);
   http = inject(HttpClient);
   displayedColumns: string[] = ['lastname', 'firstname', 'start', 'end', 'creationDate', 'statut', 'cause', 'boutons'];
   listAbsences: Absence[] = [];
   dataSource = new MatTableDataSource<Absence>(this.listAbsences);
 
   ngOnInit(): void {
-    this.absenceService.getListAbsence().subscribe(absences => {
+    this.absenceService.getListAbsences().subscribe(absences => {
       console.log('Absences:', absences);  // Vérification des données récupérées
       this.listAbsences = absences;
       this.dataSource.data = this.listAbsences;

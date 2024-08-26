@@ -9,7 +9,7 @@ import {MatSelect} from "@angular/material/select";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
-import {AbsenceServiceService} from "../service/absence-service.service";
+import {AbsenceService} from "../service/absence-service.service";
 import {Absence} from "../model/absence";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 import {userGuard} from "../user.guard";
@@ -43,7 +43,7 @@ import {User} from "../model/user";
 })
 
 export class EditAbsenceComponent implements OnInit {
-  absenceService: AbsenceServiceService = inject(AbsenceServiceService);
+  absenceService: AbsenceService = inject(AbsenceService);
   http: HttpClient = inject(HttpClient);
   router: Router = inject(Router);
   route: ActivatedRoute = inject(ActivatedRoute);

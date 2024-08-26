@@ -9,7 +9,7 @@ import {MatSelect} from "@angular/material/select";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
-import {LatenessServiceService} from "../service/lateness-service.service";
+import {LatenessService} from "../service/lateness-service.service";
 import {Lateness} from "../model/lateness";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 
@@ -39,13 +39,13 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/m
 })
 
 export class EditLatenessComponent implements OnInit {
-  latenessService: LatenessServiceService = inject(LatenessServiceService);
+  latenessService: LatenessService = inject(LatenessService);
   http: HttpClient = inject(HttpClient);
   router: Router = inject(Router);
   route: ActivatedRoute = inject(ActivatedRoute);
   formBuilder: FormBuilder = inject(FormBuilder);
   idLateness: number | null = null;
-  listLatenesss: Lateness[] = [];
+  listLateness: Lateness[] = [];
   lateness: Lateness | undefined;
 
   formulaireEditLateness: FormGroup = this.formBuilder.group(
@@ -76,10 +76,10 @@ export class EditLatenessComponent implements OnInit {
       }
     })
 
-    this.latenessService.getListLateness().subscribe(latenesss => {
-      console.log('Latenesss:', latenesss);  // Vérification des données récupérées
-      this.listLatenesss = latenesss;
-      console.log(this.listLatenesss);  // Vérification des données après mise à jour du tableau
+    this.latenessService.getListLateness().subscribe(lateness => {
+      console.log('Lateness:', lateness);  // Vérification des données récupérées
+      this.listLateness = lateness;
+      console.log(this.listLateness);  // Vérification des données après mise à jour du tableau
     });
   }
 
