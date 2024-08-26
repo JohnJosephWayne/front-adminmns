@@ -87,13 +87,25 @@
     }
   </mat-form-field>
 
+  <mat-form-field>
+    <mat-label>Cause</mat-label>
+    <mat-select
+      formControlName="absenceCause"
+      [compareWith]="comparateurEtat"
+    >
+      @for (cause of listAbsenceCause; track cause.id) {
+        <mat-option [value]="cause">{{ cause.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
   @if (userInfo?.role?.name == "ADMIN" || userInfo?.role?.name == "VALIDATOR") {
     <mat-radio-group
       formControlName="status"
       aria-label="Selectionner un statut"
     >
-      <mat-radio-button value="true">Validée</mat-radio-button>
-      <mat-radio-button value="false">Non validée</mat-radio-button>
+      <mat-radio-button [value]="true">Validée</mat-radio-button>
+      <mat-radio-button [value]="false">Non validée</mat-radio-button>
     </mat-radio-group>
   }
 

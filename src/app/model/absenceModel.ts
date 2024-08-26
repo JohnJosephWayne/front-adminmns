@@ -7,4 +7,10 @@ export interface AbsenceModel {
   start: string;
   end: string;
   studentAbsence: StudentModel;
+  absenceCause: AbsenceCause;
+}
+
+export interface AbsenceCause {
+  id: number | null | undefined;
+  name: String | undefined;
 }

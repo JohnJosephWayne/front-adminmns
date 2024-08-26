@@ -14,7 +14,7 @@ import {Absence} from "../model/absence";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 import {userGuard} from "../user.guard";
 import {AuthentificationService} from "../authentification.service";
-import {AbsenceModel} from "../model/absenceModel";
+import {AbsenceCause, AbsenceModel} from "../model/absenceModel";
 import {User} from "../model/user";
 
 @Component({
@@ -53,6 +53,7 @@ export class EditAbsenceComponent implements OnInit {
   absence: Absence | undefined;
   authentificationService: AuthentificationService = inject(AuthentificationService);
   userInfo : any;
+  listAbsenceCause : AbsenceCause[] = [];
 
   formulaireEditAbsence: FormGroup = this.formBuilder.group(
     {
@@ -62,6 +63,7 @@ export class EditAbsenceComponent implements OnInit {
       creationDate: [{value: '', disabled: true}, [Validators.required]],
       start: [{value: '', disabled: true}, [Validators.required]],
       end: [{value: '', disabled: true}, [Validators.required]],
+      absenceCause: ["",[]],
       status: [{value: '', disabled: true}, [Validators.required]]
     });
 
@@ -79,7 +81,8 @@ export class EditAbsenceComponent implements OnInit {
                 creationDate: ["", [Validators.required]],
                 start: ["", [Validators.required]],
                 end: ["", [Validators.required]],
-                status: ["", [Validators.required]]
+                absenceCause: [[],[]],
+                status: ["true", [Validators.required]]
               }
             )
           }else if(value?.role?.name== 'STUDENT'){
@@ -91,6 +94,7 @@ export class EditAbsenceComponent implements OnInit {
                 creationDate: [{value: new Date(), disabled: true}, [Validators.required]],
                 start: ["", [Validators.required]],
                 end: ["", [Validators.required]],
+                absenceCause: ["",[]],
                 status: [{value: null, disabled: true}, [Validators.required]]
               }
             )
@@ -120,6 +124,10 @@ export class EditAbsenceComponent implements OnInit {
           })
       }
     })
+
+    this.http
+      .get<any []>("http://localhost:8080/absence/causes")
+      .subscribe(resultat => this.listAbsenceCause = resultat);
   }
 
   flatAbsence({absence}: { absence: any }){
@@ -131,8 +139,10 @@ export class EditAbsenceComponent implements OnInit {
       creationDate: absence.creationDate,
       start: absence.start,
       end: absence.end,
-      status: absence.status,
+      status: absence.validity,
+      absenceCause: absence.absenceCause
     }
+    console.log("flatabsence", flatAbsence)
     return flatAbsence;
   }
   onSubmit() {
@@ -153,6 +163,10 @@ export class EditAbsenceComponent implements OnInit {
           email : formRawValue.email,
           lastname : formRawValue.lastname,
           firstname : formRawValue.firstname,
+        },
+        absenceCause:{
+          id : formRawValue.absenceCause.id,
+          name : formRawValue.absenceCause.name
         }
       }
 

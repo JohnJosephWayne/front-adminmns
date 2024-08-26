@@ -20,6 +20,7 @@ import { RouterLink } from "@angular/router";
 import { Absence } from "../model/absence";
 import { AbsenceServiceService } from "../service/absence-service.service";
 import {DatePipe} from "@angular/common";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-list-absence',
@@ -45,7 +46,8 @@ import {DatePipe} from "@angular/common";
     MatRowDef,
     MatTableModule,
     RouterLink,
-    DatePipe
+    DatePipe,
+    MatSort
   ],
   templateUrl: 'validation-absence.component.html',
   styleUrls: ['validation-absence.component.scss']
@@ -54,7 +56,7 @@ export class ValidationAbsenceComponent implements OnInit {
 
   absenceService = inject(AbsenceServiceService);
   http = inject(HttpClient);
-  displayedColumns: string[] = ['id', 'lastname', 'firstname', 'email', 'statut', 'justification', 'boutons'];
+  displayedColumns: string[] = ['lastname', 'firstname', 'start', 'end', 'creationDate', 'statut', 'cause', 'boutons'];
   listAbsences: Absence[] = [];
   dataSource = new MatTableDataSource<Absence>(this.listAbsences);
 
