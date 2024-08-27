@@ -18,7 +18,7 @@ import { MatRadioButton, MatRadioGroup } from "@angular/material/radio";
 import { MatAnchor, MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
 import { Lateness } from "../model/lateness";
-import { LatenessServiceService } from "../service/lateness-service.service";
+import {LatenessService} from "../service/lateness-service.service";
 import {DatePipe} from "@angular/common";
 
 @Component({
@@ -52,18 +52,18 @@ import {DatePipe} from "@angular/common";
 })
 export class ValidationLatenessComponent implements OnInit {
 
-  latenessService = inject(LatenessServiceService);
+  latenessService = inject(LatenessService);
   http = inject(HttpClient);
   displayedColumns: string[] = ['id', 'lastname', 'firstname', 'email', 'statut', 'boutons'];
-  listLatenesss: Lateness[] = [];
-  dataSource = new MatTableDataSource<Lateness>(this.listLatenesss);
+  listLateness: Lateness[] = [];
+  dataSource = new MatTableDataSource<Lateness>(this.listLateness);
 
   ngOnInit(): void {
-    this.latenessService.getListLateness().subscribe(latenesss => {
-      console.log('Latenesss:', latenesss);  // Vérification des données récupérées
-      this.listLatenesss = latenesss;
-      this.dataSource.data = this.listLatenesss;
-      console.log(this.listLatenesss);  // Vérification des données après mise à jour du tableau
+    this.latenessService.getListLateness().subscribe(lateness => {
+      console.log('Latenesss:', lateness);  // Vérification des données récupérées
+      this.listLateness = lateness;
+      this.dataSource.data = this.listLateness;
+      console.log(this.listLateness);  // Vérification des données après mise à jour du tableau
     });
   }
 
@@ -72,8 +72,8 @@ export class ValidationLatenessComponent implements OnInit {
       .subscribe(result => {
         console.log(result);
         // Mise à jour de la liste des latenesss après suppression
-        this.listLatenesss = this.listLatenesss.filter(lateness => lateness.id !== id);
-        this.dataSource.data = this.listLatenesss;
+        this.listLateness = this.listLateness.filter(lateness => lateness.id !== id);
+        this.dataSource.data = this.listLateness;
       });
   }
 }

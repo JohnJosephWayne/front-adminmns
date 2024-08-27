@@ -18,7 +18,7 @@ import { MatRadioButton, MatRadioGroup } from "@angular/material/radio";
 import { MatAnchor, MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
 import { Folder } from "../model/folder";
-import { FolderServiceService } from "../service/folder-service.service";
+import { StudentFolderService } from "../service/folder-service.service";
 import {DatePipe} from "@angular/common";
 import {MatPaginator} from "@angular/material/paginator";
 
@@ -54,14 +54,14 @@ import {MatPaginator} from "@angular/material/paginator";
 })
 export class ListFolderComponent implements OnInit {
 
-  folderService = inject(FolderServiceService);
+  folderService = inject(StudentFolderService);
   http = inject(HttpClient);
   displayedColumns: string[] = ['id', 'lastname', 'firstname', 'email', 'validity', 'documentList', 'boutons'];
   listFolders: Folder[] = [];
   dataSource = new MatTableDataSource<Folder>(this.listFolders);
 
   ngOnInit(): void {
-    this.folderService.getListFolder().subscribe(folders => {
+    this.folderService.getListFolders().subscribe(folders => {
       console.log('Folders:', folders);  // Vérification des données récupérées
       this.listFolders = folders;
       this.dataSource.data = this.listFolders;

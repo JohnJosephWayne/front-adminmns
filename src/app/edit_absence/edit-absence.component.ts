@@ -9,7 +9,7 @@ import {MatSelect} from "@angular/material/select";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
-import {AbsenceServiceService} from "../service/absence-service.service";
+import {AbsenceService} from "../service/absence-service.service";
 import {Absence} from "../model/absence";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 import {userGuard} from "../user.guard";
@@ -43,7 +43,7 @@ import {User} from "../model/user";
 })
 
 export class EditAbsenceComponent implements OnInit {
-  absenceService: AbsenceServiceService = inject(AbsenceServiceService);
+  absenceService: AbsenceService = inject(AbsenceService);
   http: HttpClient = inject(HttpClient);
   router: Router = inject(Router);
   route: ActivatedRoute = inject(ActivatedRoute);
@@ -81,7 +81,7 @@ export class EditAbsenceComponent implements OnInit {
                 creationDate: ["", [Validators.required]],
                 start: ["", [Validators.required]],
                 end: ["", [Validators.required]],
-                absenceCause: [[],[]],
+                absenceCause: [[],[Validators.required]],
                 status: ["true", [Validators.required]]
               }
             )
@@ -94,7 +94,7 @@ export class EditAbsenceComponent implements OnInit {
                 creationDate: [{value: new Date(), disabled: true}, [Validators.required]],
                 start: ["", [Validators.required]],
                 end: ["", [Validators.required]],
-                absenceCause: ["",[]],
+                absenceCause: ["",[Validators.required]],
                 status: [{value: null, disabled: true}, [Validators.required]]
               }
             )
@@ -148,9 +148,6 @@ export class EditAbsenceComponent implements OnInit {
   onSubmit() {
     if (this.formulaireEditAbsence.valid) {
 
-      console.log("FORM = ",this.formulaireEditAbsence.getRawValue())
-      console.log(this.idAbsence)
-
       let formRawValue = this.formulaireEditAbsence.getRawValue();
       let absenceModel : AbsenceModel = {
         id : this.idAbsence,
@@ -170,19 +167,11 @@ export class EditAbsenceComponent implements OnInit {
         }
       }
 
-
       if (this.idAbsence) {
         this.http
           .put("http://localhost:8080/absence/" + this.idAbsence, absenceModel)
-          .subscribe(result => {
-            if (this.absence?.validity == null) {
-              this.absence?.validity == ('treated')
-              this.absence?.validity == true;
-            } else {
-              this.absence.validity == false;
-            }
-            this.router.navigateByUrl("/accueil")
-          });
+          .subscribe(result =>
+            this.router.navigateByUrl("/accueil"));
       } else {
         this.http.post("http://localhost:8080/absence", absenceModel)
           .subscribe(result =>
