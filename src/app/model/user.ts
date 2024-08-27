@@ -3,7 +3,7 @@ interface userRole {
 }
 
 export class User {
-
+  id: number | undefined;
   email: string | undefined;
   lastname: string | undefined;
   firstname: string | undefined;

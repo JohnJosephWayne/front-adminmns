@@ -78,27 +78,27 @@ export class AccueilComponent implements OnInit {
 
       this.absenceService._listFilteredbyId.subscribe((
         filteredAbsencesById => this.filteredAbsencesById = filteredAbsencesById));
-      this.absenceService.getListFilteredAbsencesById();
+      this.absenceService.getListFilteredAbsencesById(userInfo?.id);
 
       this.absenceService._listbyId.subscribe((
         allAbsencesById => this.absencesListById = allAbsencesById));
-      this.absenceService.getListAbsencesById();
+      this.absenceService.getListAbsencesById(userInfo?.id);
 
-      this.latenessService._listFilteredbyId.subscribe((
-        filteredLatenessById => this.filteredLatenessById = filteredLatenessById));
-      this.latenessService.getListFilteredLatenessById();
+      // this.latenessService._listFilteredbyId.subscribe((
+      //   filteredLatenessById => this.filteredLatenessById = filteredLatenessById));
+      // this.latenessService.getListFilteredLatenessById();
 
-      this.latenessService._listbyId.subscribe((
-        allLatenessById => this.latenessListById = allLatenessById));
-      this.latenessService.getListLatenessById();
+      // this.latenessService._listbyId.subscribe((
+      //   allLatenessById => this.latenessListById = allLatenessById));
+      // this.latenessService.getListLatenessById();
 
-      this.studentFolderService._listFilteredbyId.subscribe((
-        filteredFoldersById => this.filteredFoldersById = filteredFoldersById));
-      this.studentFolderService.getListFilteredFoldersById();
+      // this.studentFolderService._listFilteredbyId.subscribe((
+      //   filteredFoldersById => this.filteredFoldersById = filteredFoldersById));
+      // this.studentFolderService.getListFilteredFoldersById();
 
-      this.studentFolderService._listbyId.subscribe((
-        allFoldersById => this.foldersListById = allFoldersById));
-      this.studentFolderService.getListFoldersById();
+      // this.studentFolderService._listbyId.subscribe((
+      //   allFoldersById => this.foldersListById = allFoldersById));
+      // this.studentFolderService.getListFoldersById();
 
     })
   }

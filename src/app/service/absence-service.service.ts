@@ -12,7 +12,7 @@ export class AbsenceService {
   http = inject(HttpClient);
 
   private readonly baseUrl = "http://localhost:8080/absence";
-  private readonly userUrl = "http://localhost:8080/users/absences";
+  private readonly userUrl = "http://localhost:8080/absence/student";
 
   _invalidAbsences = new BehaviorSubject<Absence[]>([]);
   _listAbsences = new BehaviorSubject<Absence[]>([]);
@@ -38,21 +38,25 @@ export class AbsenceService {
     return this._listAbsences.asObservable();
   }
 
-  getListFilteredAbsencesById(): void {
-    this.http.get<Absence[]>(this.userUrl)
+  getListFilteredAbsencesById(id: number | undefined) {
+    this.http.get<Absence[]>(`${this.userUrl}/${id}`)
+
       .pipe(
         tap(filteredAbsences => {
           const filteredAbsenceById = filteredAbsences.filter(absence => absence.validity === null || absence.validity === false);
           this._listFilteredbyId.next(filteredAbsenceById);
         })
       ).subscribe();
+    return this._listFilteredbyId.asObservable();
+
   }
 
-  getListAbsencesById(): void {
-    this.http.get<Absence[]>(this.userUrl)
+  getListAbsencesById(id: number | undefined): Observable<Absence[]> {
+    this.http.get<Absence[]>(`${this.userUrl}/${id}`)
       .pipe(
         tap(absencesList => this._listbyId.next(absencesList))
       ).subscribe();
+    return this._listFilteredbyId.asObservable();
   }
 
   deleteAbsence(id: number): Observable<any> {
