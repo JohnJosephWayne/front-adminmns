@@ -82,7 +82,7 @@ export class EditAbsenceComponent implements OnInit {
                 start: ["", [Validators.required]],
                 end: ["", [Validators.required]],
                 absenceCause: [[],[Validators.required]],
-                status: ["true", [Validators.required]]
+                status: ["", [Validators.required]]
               }
             )
           }else if(value?.role?.name== 'STUDENT'){
